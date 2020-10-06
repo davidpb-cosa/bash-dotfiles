@@ -10,12 +10,15 @@ _DFPATH=$(find $HOME -name bash-dotfiles -not -path "*.*" | head -1)
 
 if [[ -z $_DFPATH ]]; then
 	source ~/exports
-	source ~/aliases
 	source ~/functions
+	source ~/aliases
 else
 	source $_DFPATH/exports
-	source $_DFPATH/aliases
 	source $_DFPATH/functions
+	source $_DFPATH/aliases
 fi
+
+PS1="$MAGENTA\[$ENDCOLOR$EMMAGENTA\u \W$ENDCOLOR$MAGENTA\] >>> $ENDCOLOR"
+sysinfo
 
 unset _DFPATH

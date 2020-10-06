@@ -1,7 +1,6 @@
 #
 # ~/.zshrc
 #
-#
 # @author davidpb-cosa
 #
 

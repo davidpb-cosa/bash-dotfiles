@@ -11,6 +11,14 @@
 
 DFPATH=$(find $HOME -name bash-dotfiles -not -path "*.*" | head -1)
 
+if [[ -z $DFPATH ]]; then
+	source ~/exports
+	alias sysinfo="neofetch --source ~/ascii_icon --colors 133 249 255 133 255"
+else
+	source $DFPATH/exports
+	alias sysinfo="neofetch --source $DFPATH/ascii_icon --colors 133 249 255 133 255"
+fi
+
 # Alias for all commands that use the available package manager
 case $PACKAGE_MANAGER in
 	"yum")
@@ -60,7 +68,6 @@ alias cls="clear"						  					            # clear current terminal
 
 # GNU/Linux System information
 alias cpuinfo="cat /proc/cpuinfo | grep 'model name' | cut -d ":" -f 2 | uniq"
-alias sysinfo="neofetch --source $DFPATH/ascii_icon --colors 133 249 255 133 255"
 alias osinfo="echo $(uname -o) $(uname -m)"
 alias uptime="uptime -p | cut -c 4-"
 alias kernelinfo="uname -r"

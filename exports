@@ -37,28 +37,17 @@ export DESKTOP_SESSION=awesome
 # Default editor and terminal
 export EDITOR=/usr/bin/nano
 export TERMINAL=/usr/bin/termite
-export SHELL=/bin/zsh
+export SHELL=/bin/zsh	# or /bin/bash
 
 # Language preferences and use UTF-8
 export LANG=es_ES.UTF-8
 export LC_ALL=es_ES.UTF-8
-
-# Default browser currently installed
-export BROWSER=chromium
 
 # Make Python use UTF-8 encoding for output to stdin, stdout, and stderr.
 export PYTHONIOENCODING='UTF-8';
 
 # General environment path
 export PROGRAMMING_PATH=$HOME/projects
-
-# Default preferences for QT
-export QT_QPA_PLATFORMTHEME="qt5ct"
-export QT_AUTO_SCREEN_SCALE_FACTOR=0
-
-# Default preferences for XDG
-export XDG_CURRENT_DESKTOP=XFCE
-export XDG_CONFIG_DIRS=/etc/xdg
 
 # Zsh history preferences
 export ZDOTDIR=~/.config/zsh
@@ -93,8 +82,8 @@ export PACKAGE_MANAGER
 declare -a package_manager=(yum pacman emerge zypp apt-get)
 declare -a file_path=(redhat-release arch-release gentoo-release SuSE-release debian_version)
 
-for (( i=1; i<=${#filePath[@]}; i++ )); do
-	if [[ -f /etc/${filePath[$i]} ]]; then
+for (( i=0; i<${#file_path[@]}; i++ )); do
+	if [[ -f /etc/${file_path[$i]} ]]; then
 		PACKAGE_MANAGER=${package_manager[$i]}
 		break
 	fi

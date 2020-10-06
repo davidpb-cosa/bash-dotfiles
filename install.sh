@@ -11,8 +11,9 @@ _backup_dotfiles () {
 	rm -rf $DFPATH/old-dotfiles
 	mkdir $DFPATH/old-dotfiles
 
-  cp -r ~/.bashrc $DFPATH/old-dotfiles/
-  cp -r ~/.zshrc $DFPATH/old-dotfiles/
+  	cp -r ~/.bashrc $DFPATH/old-dotfiles/
+  	cp -r ~/.zshrc $DFPATH/old-dotfiles/
+
 	tar -czvf $DFPATH/old-dotfiles.tar $DFPATH/old-dotfiles &>/dev/null
 	rm -r $DFPATH/old-dotfiles
 }
@@ -23,20 +24,20 @@ _symlink_dotfiles () {
 	rm -rf ~/functions &>/dev/null
 	rm -rf ~/aliases &>/dev/null
 
-  ln -sf $DFPATH/.bashrc ~/.bashrc
-  ln -sf $DFPATH/.zshrc ~/.zshrc
+  	ln -sf $DFPATH/.bashrc ~/.bashrc
+	ln -sf $DFPATH/.zshrc ~/.zshrc
 }
 
 # Move new config files in default home path
 _cp_dotfiles () {
-  rm -rf ~/aliases &>/dev/null
-  cp $DFPATH/aliases ~/aliases
+	rm -rf ~/aliases &>/dev/null
+	cp $DFPATH/aliases ~/aliases
 
-  rm -rf ~/functions &>/dev/null
-  cp $DFPATH/functions ~/functions
+	rm -rf ~/functions &>/dev/null
+	cp $DFPATH/functions ~/functions
 
-  rm -rf ~/exports &>/dev/null
-  cp $DFPATH/exports ~/exports
+	rm -rf ~/exports &>/dev/null
+	cp $DFPATH/exports ~/exports
 
 	rm -rf ~/.bashrc &>/dev/null
 	cp $DFPATH/.bashrc ~/.bashrc
@@ -77,6 +78,8 @@ clear
 echo -e "\033[1;33m>>\e[m \033[1;34mBASH DOTFILES \033[4;36mINSTALLATION\e[m\e[m \033[1;33m<<\e[m"
 echo -e "\033[1;34m===================================\e[m"
 
+mkdir ~/.config/zsh &>/dev/null
+
 # Create a backup before the installation if user wants
 while true; do
   read -p "Would you like to create a backup? (y/n): " yesno
@@ -97,8 +100,6 @@ while true; do
     break
   elif [[ $yesno = "n" ]]; then
     _exec_with_mssg "_cp_dotfiles" "==> Copying new dotfiles in $HOME ..."
-		_cp_dotfiles
-
     break
   fi
 done
