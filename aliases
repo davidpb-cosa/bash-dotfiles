@@ -9,7 +9,7 @@
 # @author davidpb-cosa
 #
 
-DFPATH=$(find $HOME -name bash-dotfiles -not -path "*.*")
+DFPATH=$(find $HOME -name bash-dotfiles -not -path "*.*" | head -1)
 source $DFPATH/exports
 
 # Alias for all commands that use the available package manager
@@ -61,7 +61,7 @@ alias cls="clear"						  					            # clear current terminal
 
 # GNU/Linux System information
 alias cpuinfo="cat /proc/cpuinfo | grep 'model name' | cut -d ":" -f 2 | uniq"
-alias sysinfo="neofetch --source $DFPATH/bash/ascii_icon --colors 133 249 255 133 255"
+alias sysinfo="neofetch --source $DFPATH/ascii_icon --colors 133 249 255 133 255"
 alias osinfo="echo $(uname -o) $(uname -m)"
 alias uptime="uptime -p | cut -c 4-"
 alias kernelinfo="uname -r"

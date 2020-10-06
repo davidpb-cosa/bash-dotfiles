@@ -3,7 +3,7 @@
 # @author davidpb-cosa
 #
 
-DFPATH=$(find $HOME -name bash-dotfiles -not -path "*.*")
+DFPATH=$(find $HOME -name bash-dotfiles -not -path "*.*" | head -1)
 
 # Create a backup in .tar to store old user dotfiles.
 # This function won't work unless tar package is installed
@@ -29,9 +29,9 @@ _symlink_dotfiles () {
 
 # Move new config files in default home path
 _cp_dotfiles () {
-	cp $DFPATH/bash/aliases ~/aliases
-	cp $DFPATH/bash/exports ~/exports
-	cp $DFPATH/bash/functions ~/functions
+	cp $DFPATH/aliases ~/aliases
+	cp $DFPATH/exports ~/exports
+	cp $DFPATH/functions ~/functions
 
   rm -rf ~/aliases &>/dev/null
   cp $DFPATH/aliases ~/aliases
@@ -41,23 +41,6 @@ _cp_dotfiles () {
 
   rm -rf ~/exports &>/dev/null
   cp $DFPATH/exports ~/exports
-}
-
-# Display a spinner next to a message indefinitely.
-# This function should only be used in _exec_with_mssg
-# # usage: _load_spinner <message>
-# # output: <message> <spinner>
-_load_spinner () {
-  if [[ $# != 0 ]]; then
-    local spinner="/|\\-/|\\-"
-
-    while true; do
-      for (( i=0; i<7; i++ )); do
-        echo -ne "$@ ${spinner:$i:1} \r"
-        sleep 0.5
-      done
-    done
-  fi
 }
 
 # Execute a command in first plane showing a message
@@ -71,13 +54,8 @@ _exec_with_mssg () {
 	if [[ $# = 2 ]]; then
 		local restest="\033[1;32m√\e[m"
 
-    # Load spinner for current command
-    _load_spinner ${2} &
-    local SPIN_PID=$!
-
     # Executing command while there's no signals
     $1 &>/dev/null
-    trap "kill -9 $SPIN_PID" `seq 0 15`
 
 		# Check if command has some errors
 		if [[ $? != 0 ]]; then
@@ -85,11 +63,11 @@ _exec_with_mssg () {
 		fi
 
 		echo -e "${2} ${restest}"
-    kill $SPIN_PID &>/dev/null
 	fi
 }
 
 # Dump command just to get sudo privilegies
+clear
 sudo ls /root &>/dev/null
 clear
 
@@ -121,4 +99,16 @@ while true; do
   fi
 done
 
-clear
+# Check if user wants to reboot the system
+while true; do
+	read -p "Reboot system? (y/n) " yesno
+
+	if [[ $yesno = "y" ]]; then
+		reboot
+	elif [[ $yesno = "n" ]]; then
+		break
+	fi
+done
+
+echo "Finishing the installation ..."
+sleep 2

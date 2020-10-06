@@ -29,7 +29,7 @@ pathappend () {
 }
 
 # Default dotfiles path
-export DFPATH=$(find $HOME -name bash-dotfiles -not -path "*.*")
+export DFPATH=$(find $HOME -name bash-dotfiles -not -path "*.*" | head -1)
 
 # Default Desktop Session
 export DESKTOP_SESSION=awesome

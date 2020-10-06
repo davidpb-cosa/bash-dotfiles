@@ -12,7 +12,7 @@
 # @author davidpb-cosa
 #
 
-DFPATH=$(find $HOME -name bash-dotfiles -not -path "*.*")
+DFPATH=$(find $HOME -name bash-dotfiles -not -path "*.*" | head -1)
 
 source $DFPATH/aliases
 source $DFPATH/exports
