@@ -19,6 +19,7 @@ case $PACKAGE_MANAGER in
 		alias uninstall="sudo yum remove"
 		alias update="sudo yum update"
 		alias list_all_packs="yum list"
+		alias search_pack="yum list | grep"
 	;;
 
 	# Default value for pacman package manager
@@ -27,6 +28,7 @@ case $PACKAGE_MANAGER in
 		alias uninstall="sudo pacman -Rns"
 		alias update="sudo pacman -Syyu"
 		alias list_all_packs="pacman -Q"
+		alias search_pack="pacman -Q"
 	;;
 esac
 
