@@ -8,8 +8,14 @@
 # Store absolute cosa-dotfiles path
 _DFPATH=$(find $HOME -name bash-dotfiles -not -path "*.*" | head -1)
 
-source $_DFPATH/exports
-source $_DFPATH/aliases
-source $_DFPATH/functions
+if [[ -z $_DFPATH ]]; then
+	source ~/exports
+	source ~/aliases
+	source ~/functions
+else
+	source $_DFPATH/exports
+	source $_DFPATH/aliases
+	source $_DFPATH/functions
+fi
 
 unset _DFPATH

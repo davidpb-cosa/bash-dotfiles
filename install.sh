@@ -3,7 +3,7 @@
 # @author davidpb-cosa
 #
 
-DFPATH=$(find $HOME -name bash-dotfiles -not -path "*.*" | head -1)
+DFPATH=$(find $HOME -name bash-dotfiles -not -path "*.*")
 
 # Create a backup in .tar to store old user dotfiles.
 # This function won't work unless tar package is installed
@@ -29,10 +29,6 @@ _symlink_dotfiles () {
 
 # Move new config files in default home path
 _cp_dotfiles () {
-	cp $DFPATH/aliases ~/aliases
-	cp $DFPATH/exports ~/exports
-	cp $DFPATH/functions ~/functions
-
   rm -rf ~/aliases &>/dev/null
   cp $DFPATH/aliases ~/aliases
 
@@ -41,6 +37,12 @@ _cp_dotfiles () {
 
   rm -rf ~/exports &>/dev/null
   cp $DFPATH/exports ~/exports
+
+	rm -rf ~/.bashrc &>/dev/null
+	cp $DFPATH/.bashrc ~/.bashrc
+
+	rm -rf ~/.zshrc &>/dev/null
+	cp $DFPATH/.zshrc ~/.zshrc
 }
 
 # Execute a command in first plane showing a message
@@ -74,6 +76,7 @@ clear
 # Output message to welcome user
 echo -e "\033[1;33m>>\e[m \033[1;34mBASH DOTFILES \033[4;36mINSTALLATION\e[m\e[m \033[1;33m<<\e[m"
 echo -e "\033[1;34m===================================\e[m"
+echo $DFPATH
 
 # Create a backup before the installation if user wants
 while true; do
@@ -95,6 +98,8 @@ while true; do
     break
   elif [[ $yesno = "n" ]]; then
     _exec_with_mssg "_cp_dotfiles" "==> Copying new dotfiles in $HOME ..."
+		_cp_dotfiles
+
     break
   fi
 done

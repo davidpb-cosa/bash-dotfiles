@@ -14,8 +14,15 @@
 
 DFPATH=$(find $HOME -name bash-dotfiles -not -path "*.*" | head -1)
 
-source $DFPATH/aliases
-source $DFPATH/exports
+if [[ -z $DFPATH ]]; then
+	source ~/exports
+	source ~/aliases
+	source ~/functions
+else
+	source $DFPATH/exports
+	source $DFPATH/aliases
+	source $DFPATH/functions
+fi
 
 # Show available prompt colors for default Linux bash
 colorsinfo () {

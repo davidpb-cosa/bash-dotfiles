@@ -10,7 +10,17 @@
 #
 
 DFPATH=$(find $HOME -name bash-dotfiles -not -path "*.*" | head -1)
-source $DFPATH/exports
+
+if [[ -z $_DFPATH ]]; then
+	source ~/exports
+	source ~/aliases
+	source ~/functions
+else
+	source $DFPATH/exports
+	source $DFPATH/aliases
+	source $DFPATH/functions
+fi
+
 
 # Alias for all commands that use the available package manager
 case $PACKAGE_MANAGER in
