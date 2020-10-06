@@ -9,7 +9,7 @@
 # @author davidpb-cosa
 #
 
-DFPATH=$(find $HOME -name cosa-dotfiles -not -path "*.*")
+DFPATH=$(find $HOME -name bash-dotfiles -not -path "*.*")
 source $DFPATH/exports
 
 # Alias for all commands that use the available package manager
