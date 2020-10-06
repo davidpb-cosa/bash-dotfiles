@@ -1,0 +1,150 @@
+#!/usr/bin/env bash
+#
+# Feel free to add new functions or edit the default ones as
+# much as you want, but always watch the consequences. It
+# is recommended to keep these functions without modifying it
+# since some dotfiles may need them as they are in default
+#
+# WARNING.
+# Some functions of this script are not completely tested,
+# so do not use them unless you know what you're doing!!
+#
+# @author davidpb-cosa
+#
+
+DFPATH=$(find $HOME -name bash-dotfiles -not -path "*.*")
+
+source $DFPATH/aliases
+source $DFPATH/exports
+
+# Show available prompt colors for default Linux bash
+colorsinfo () {
+	local fgc bgc vals seq0
+
+	# foreground colors
+	for fgc in {30..37}; do
+		# background colors
+		for bgc in {40..47}; do
+			fgc=${fgc#37} # white
+			bgc=${bgc#40} # black
+
+			vals="${fgc:+$fgc;}${bgc}"
+			vals=${vals%%;}
+
+			seq0="${vals:+\e[${vals}m}"
+			printf "  %-9s" "${seq0:-(default)}"
+			printf " ${seq0}TEXT\e[m"
+			printf " \e[${vals:+${vals+$vals;}}1mBOLD\e[m"
+			echo
+		done
+
+		echo; echo
+	done
+}
+
+# Show current RAM status in human-readable output
+raminfo () {
+	# Obtain porcentage usage in bytes
+	local porc=$(($(free -w | grep "Mem:" | awk '{print $3}')*100))
+	porc=$(($porc/$(free -w | grep "Mem:" | awk '{print $2}')))
+
+	# Format used and total in human-readable output
+	local used=$(free -hw | grep "Mem:" | awk '{print $3}')
+	local total=$(free -hw | grep "Mem:" | awk '{print $2}')
+
+	echo "${used} / ${total} (${porc}%)"
+	unset used total porc
+}
+
+# Show some information about a target specified in param $1
+# # usage: mountinfo /home
+mountinfo () {
+	if [[ -z $1 ]]; then
+		echo "ERROR!! Target not specified"
+	else
+		touch /temp/temp.txt
+
+		# Find and store in a file what are the candidates
+		df -h --output=used,size,pcent,fstype,target | grep "$1" > /temp/temp.txt
+
+		# Check if target exists in current file system
+		while IFS= read -r line; do
+				if [[ $(echo $line | awk '{print $5}') = $1 ]]; then
+					local used=$(echo $line | awk '{print $1}')
+					local size=$(echo $line | awk '{print $2}')
+					local pcent=$(echo $line | awk '{print $3}')
+					local fstype=$(echo $line | awk '{print $4}')
+
+					echo "$used | $size ($pcent) ($fstype)"
+					unset used size pcent fstype
+
+					rm /temp/temp.txt
+					return 0
+				fi
+		done < /temp/temp.txt
+
+		echo "Unkown target"
+		rm /temp/temp.txt
+	fi
+
+	return -1
+}
+
+# Create a new directory and enter it
+mkd () {
+	mkdir -p "$@" && cd "$_"
+}
+
+# Remove all files inside a folder
+rmmkdir () {
+	if [[ -f $1 ]]; then
+		rm -R $1 &>/dev/null
+		mkdir -R $1 &>/dev/null
+
+		return 0
+	fi
+
+	return -1
+}
+
+# Determine size of a file or total size of a directory
+fs () {
+	local arg=-sh
+
+	if du -b /dev/null > /dev/null 2>&1; then
+		arg=-sbh
+	fi
+
+	if [[ -n "$@" ]]; then
+		du $arg -- "$@"
+	else
+		du $arg .[^.]* ./*
+	fi
+
+	unset arg
+}
+
+# # ex - archive extractor
+# Extracts current file according its format
+# # usage: ex <file>
+ex () {
+  if [ -f $1 ] ; then
+    case $1 in
+      *.tar.bz2)   tar xjf $1   ;;
+      *.tar.gz)    tar xzf $1   ;;
+			*.tar.xz)		 tar xf $1		;;
+      *.bz2)       bunzip2 $1   ;;
+      *.rar)       unrar x $1   ;;
+      *.gz)        gunzip $1    ;;
+      *.tar)       tar xf $1    ;;
+      *.tbz2)      tar xjf $1   ;;
+      *.tgz)       tar xzf $1   ;;
+      *.zip)       unzip $1     ;;
+      *.Z)         uncompress $1;;
+      *.7z)        7z x $1      ;;
+      *)           echo "'$1' cannot be extracted via ex()" ;;
+    esac
+  else
+    echo "'$1' is not a valid file"
+  fi
+}
