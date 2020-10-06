@@ -44,6 +44,9 @@ _cp_dotfiles () {
 
 	rm -rf ~/.zshrc &>/dev/null
 	cp $DFPATH/.zshrc ~/.zshrc
+
+	rm -rf ~/ascii_icon &>/dev/null
+	cp $DFPATH/ascii_icon ~/ascii_icon
 }
 
 # Execute a command in first plane showing a message
