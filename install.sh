@@ -3,7 +3,7 @@
 # @author davidpb-cosa
 #
 
-DFPATH=$(find $HOME -name bash-dotfiles -not -path "*.*")
+DFPATH=$(find $HOME -name bash-dotfiles -not -path "*.*" | head -1)
 
 # Create a backup in .tar to store old user dotfiles.
 # This function won't work unless tar package is installed
@@ -76,7 +76,6 @@ clear
 # Output message to welcome user
 echo -e "\033[1;33m>>\e[m \033[1;34mBASH DOTFILES \033[4;36mINSTALLATION\e[m\e[m \033[1;33m<<\e[m"
 echo -e "\033[1;34m===================================\e[m"
-echo $DFPATH
 
 # Create a backup before the installation if user wants
 while true; do
