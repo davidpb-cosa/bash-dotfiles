@@ -56,7 +56,7 @@ while true; do
 
   if [[ $yesno = "y" ]]; then
   	echo ">> Creating the backup for old .files ..."
-  	_backup_dotfiles
+  	_backup_dotfiles &>/dev/null
     break
   elif [[ $yesno = "n" ]]; then
     break
@@ -64,7 +64,7 @@ while true; do
 done
 
 echo ">> Moving and linking all the bash .files ..."
-_mv_link_dotfiles
+_mv_link_dotfiles &>/dev/null
 
 rm -rf ~/.bash_profile &>/dev/null
 rm -rf ~/.bash_logout &>/dev/null
