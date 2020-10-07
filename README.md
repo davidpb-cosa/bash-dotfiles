@@ -24,5 +24,5 @@ reboot
 
 ## Other cool stuff of myself
 
-ArchLinux .files:  https://github.com/losedavidpb/arch-dotfiles
-Awesome WM config: htts://github.com/losedavidpb/awesome-config
+* ArchLinux .files:  https://github.com/losedavidpb/arch-dotfiles
+* Awesome WM config: htts://github.com/losedavidpb/awesome-config
