@@ -6,8 +6,7 @@
 # is recommended to keep these aliases without modifying it
 # since some dotfiles may need them as they are in default
 #
-# @author davidpb-cosa
-#
+# @author losedavidpb
 
 DFPATH=$(find $HOME -name bash-dotfiles -not -path "*.*" | head -1)
 
