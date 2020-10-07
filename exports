@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# @author davidpb-cosa
+# @author losedavidpb
 #
 
 # Append path to global variable PATH with no redundance
