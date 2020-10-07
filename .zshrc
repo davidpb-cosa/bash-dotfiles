@@ -4,24 +4,15 @@
 # @author losedavidpb
 #
 
-# Store absolute cosa-dotfiles path
-_DFPATH=$(find $HOME -name bash-dotfiles -not -path "*.*" | head -1)
-
-if [[ -z $_DFPATH ]]; then
-	source ~/exports
-	source ~/functions
-	source ~/aliases
-else
-	source $_DFPATH/exports
-	source $_DFPATH/functions
-	source $_DFPATH/aliases
-fi
+source ~/.config/shell/exports
+source ~/.config/shell/functions
+source ~/.config/shell/aliases
 
 # Enable autocompletion using a cache for faster startup
 autoload -Uz compinit
 typeset -i updated_at=$(
-	date +'%j' -r ~/.zcompdump 2>/dev/null ||
-	stat -f '%Sm' -t '%j' ~/.zcompdump 2>/dev/null
+	date +'%j' -r ~/.config/shell/zsh-cache/.zcompdump 2>/dev/null ||
+	stat -f '%Sm' -t '%j' ~/.config/shell/zsh-cache/.zcompdump 2>/dev/null
 )
 
 if [ $(date +'%j') != $updated_at ]; then
@@ -38,39 +29,39 @@ setopt correct											# Auto correct mistakes
 setopt no_list_ambiguous						# Avoid list ambiguous
 setopt extendedglob                 # Extended globbing. Allows using regular expressions with *
 setopt nocaseglob                   # Case insensitive globbing
-unsetopt nomatch					# Passes the command as is instead of reporting pattern matching failure see Chrysostomus/manjaro-zsh-config#14
+unsetopt nomatch										# Passes the command as is instead of reporting pattern matching failure see Chrysostomus/manjaro-zsh-config#14
 setopt rcexpandparam                # Array expension with parameters
 setopt nocheckjobs                  # Don't warn about running processes when exiting
 setopt numericglobsort              # Sort filenames numerically when it makes sense
 setopt nobeep                       # No beep
-setopt completealiases				# Set aliases completion
+setopt completealiases							# Set aliases completion
 setopt autocd                       # If only directory path is entered, cd there.
 
-setopt correct_all 					# Autocorrect commands
-setopt interactive_comments 		# Allow comments in interactive shells
+setopt correct_all 									# Autocorrect commands
+setopt interactive_comments 				# Allow comments in interactive shells
 
-setopt HIST_IGNORE_DUPS				# Remove duplicated lines in ZSH history
+setopt HIST_IGNORE_DUPS							# Remove duplicated lines in ZSH history
 setopt appendhistory                # Immediately append history instead of overwriting
 setopt histignorealldups            # If a new command is a duplicate, remove the older one
-setopt hist_reduce_blanks 			# Remove superfluous blanks from history items
-setopt inc_append_history 			# Save history entries as soon as they are entered
-setopt share_history 				# Share history between different instances of the shell
+setopt hist_reduce_blanks 					# Remove superfluous blanks from history items
+setopt inc_append_history 					# Save history entries as soon as they are entered
+setopt share_history 								# Share history between different instances of the shell
 
-setopt auto_list 					# Automatically list choices on ambiguous completion
-setopt auto_menu 					# Automatically use menu completion
-setopt always_to_end 				# Move cursor to end if word had one match
+setopt auto_list 										# Automatically list choices on ambiguous completion
+setopt auto_menu 										# Automatically use menu completion
+setopt always_to_end 								# Move cursor to end if word had one match
 
-zstyle ':completion:*' menu select											# Menu select completion
-zstyle ':completion:*' group-name '' 										# Group results by category
+zstyle ':completion:*' menu select																					# Menu select completion
+zstyle ':completion:*' group-name '' 																				# Group results by category
 zstyle ':completion:::::' completer _expand _complete _ignored _approximate # Enable approximate matches for completion
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'       			# Case insensitive tab completion
-zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"         			# Colored completion (different colors for dirs/files/etc)
-zstyle ':completion:*' rehash true                              			# Automatically find new executables in path
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'       						# Case insensitive tab completion
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"         						# Colored completion (different colors for dirs/files/etc)
+zstyle ':completion:*' rehash true                              						# Automatically find new executables in path
 
 # Speed up completions
 zstyle ':completion:*' accept-exact '*(N)'
 zstyle ':completion:*' use-cache on
-zstyle ':completion:*' cache-path ~/.zsh/cache
+zstyle ':completion:*' cache-path ~/.config/shell/zsh-cache
 
 	## KEYBINDINGS SECTION
 
@@ -91,7 +82,7 @@ fi
 
 bindkey '^[[2~' overwrite-mode                                  # Insert key
 bindkey '^[[3~' delete-char                                     # Delete key
-bindkey '^[3;5~' delete-char									# Delete key
+bindkey '^[3;5~' delete-char																		# Delete key
 bindkey '^[[C'  forward-char                                    # Right key
 bindkey '^[[D'  backward-char                                   # Left key
 bindkey '^[[5~' history-beginning-search-backward               # Page up key
@@ -120,7 +111,7 @@ alias help=run-help
 	## THEMING SECTION
 
 autoload -U compinit colors zcalc
-compinit -d ~/.config/zsh/.zcompdump
+compinit -d ~/.config/shell/cache/.zcompdump
 colors
 
 # Enable substitution for prompt
@@ -128,9 +119,9 @@ setopt prompt_subst
 
 # Define PROMPT variable according to GID
 if [[ $(id -G) = 0 ]]; then
-	PROMPT="%(?.%F{green}√.%F{red}X) %F{111}[%f %B%F{117}/root %1~%f%b %F{111}] >>> %f"
+	PROMPT="%(?.%F{green}√.%F{red}X) %F{111}$SHELL_NAME[%f %B%F{117}/root %1~%f%b %F{111}] >>> %f"
 else
-	PROMPT="%(?.%F{green}√.%F{red}X) %F{133}[%f %B%F{134}%n %1~%f%b %F{133}] >>> %f"
+	PROMPT="%(?.%F{green}√.%F{red}X) %F{133}$SHELL_NAME[%f %B%F{134}%n %1~%f%b %F{133}] >>> %f"
 fi
 
 # Modify the colors and symbols in these variables as desired.
@@ -250,8 +241,6 @@ case $(basename "$(cat "/proc/$PPID/comm")") in
   		ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=242'
     ;;
 esac
-
-unset _DFPATH
 
 # Display general information about current system
 sysinfo

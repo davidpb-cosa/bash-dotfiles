@@ -5,20 +5,11 @@
 # is recommended to keep these functions without modifying it
 # since some dotfiles may need them as they are in default
 #
-# WARNING.
-# Some functions of this script are not completely tested,
-# so do not use them unless you know what you're doing!!
 #
 # @author losedavidpb
 #
 
-DFPATH=$(find $HOME -name bash-dotfiles -not -path "*.*" | head -1)
-
-if [[ -z $DFPATH ]]; then
-	source ~/aliases
-else
-	source $DFPATH/aliases
-fi
+source ~/.config/shell/aliases
 
 # Show available prompt colors for default Linux bash
 colorsinfo () {
@@ -94,11 +85,13 @@ mountinfo () {
 }
 
 # Create a new directory and enter it
+# # usage: mkd <directory_path>
 mkd () {
 	mkdir -p "$@" && cd "$_"
 }
 
 # Remove all files inside a folder
+# # usage: rmmkdir <folder_path>
 rmmkdir () {
 	if [[ -f $1 ]]; then
 		rm -R $1 &>/dev/null
@@ -111,6 +104,7 @@ rmmkdir () {
 }
 
 # Determine size of a file or total size of a directory
+# # usage: fs <directory/file>
 fs () {
 	local arg=-sh
 

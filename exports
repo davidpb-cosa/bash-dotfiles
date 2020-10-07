@@ -28,20 +28,11 @@ pathappend () {
   fi
 }
 
-# Default dotfiles path
-export DFPATH=$(find $HOME -name bash-dotfiles -not -path "*.*" | head -1)
-
-# Default Desktop Session
-export DESKTOP_SESSION=awesome
-
 # Default editor and terminal
 export EDITOR=/usr/bin/nano
 export TERMINAL=/usr/bin/termite
-export SHELL=/bin/zsh	# or /bin/bash
-
-# Language preferences and use UTF-8
-export LANG=es_ES.UTF-8
-export LC_ALL=es_ES.UTF-8
+export SHELL=/bin/bash	# or /bin/bash
+export SHELL_NAME=bash
 
 # Make Python use UTF-8 encoding for output to stdin, stdout, and stderr.
 export PYTHONIOENCODING='UTF-8';
@@ -49,14 +40,14 @@ export PYTHONIOENCODING='UTF-8';
 # General environment path
 export PROGRAMMING_PATH=$HOME/projects
 
-# Zsh history preferences
-export ZDOTDIR=~/.config/zsh
-export HISTFILE=~/.config/zsh/.zhistory
+# Bash/Zsh preferences
+export ZDOTDIR=~/.config/shell
+export WORDCHARS=${WORDCHARS//\/[&.;]}
+export TMPDIR=~/.config/shell/tmp
+#export HISTFILE=~/.config/shell/tmp/.zhistory
+export HISTFILE=~/.config/shell/tmp/.bash_history
 export HISTSIZE=1000
 export SAVEHIST=1000
-export WORDCHARS=${WORDCHARS//\/[&.;]}
-
-# Omit duplicates and commands that begin with a space from history.
 export HISTCONTROL=ignoreboth
 
 # Default directories for variable PATH
@@ -71,7 +62,6 @@ pathappend /usr/bin/core_perl
 pathappend /usr/lib/jvm/default/bin
 
 # Extra directories for variable PATH
-pathappend $DFPATH
 pathappend $PROGRAMMING_PATH
 pathappend $PROGRAMMING_PATH/local
 pathappend $PROGRAMMING_PATH/github
@@ -79,59 +69,59 @@ pathappend $PROGRAMMING_PATH/github
 # Package manager variables
 export PACKAGE_MANAGER
 
-declare -a package_manager=(yum pacman emerge zypp apt-get)
-declare -a file_path=(redhat-release arch-release gentoo-release SuSE-release debian_version)
+declare -a pack_manager=(yum pacman)
+declare -a file_path=(redhat-release arch-release)
 
 for (( i=0; i<${#file_path[@]}; i++ )); do
 	if [[ -f /etc/${file_path[$i]} ]]; then
-		PACKAGE_MANAGER=${package_manager[$i]}
+		PACKAGE_MANAGER=${pack_manager[$i]}
 		break
 	fi
 done
 
-unset file_path package_manager
+unset file_path pack_manager
 
   ### DEFAULT COLOR FOR BASH ###
 
 # End current prompt color
-export ENDCOLOR="\e[m"
+export ENDCOLOR="\[\e[0m\]"
 
 # Regular colors
-export BLACK="\033[0;30m"
-export RED="\033[0;31m"
-export GREEN="\033[0;32m"
-export YELLOW="\033[0;33m"
-export BLUE="\033[0;34m"
-export MAGENTA="\033[0;35m"
-export CYAN="\033[0;36m"
-export WHITE="\033[0;37m"
+export BLACK="\[\033[0;30m\]"
+export RED="\[\033[0;31m\]"
+export GREEN="\[\033[0;32m\]"
+export YELLOW="\[\033[0;33m\]"
+export BLUE="\[\033[0;34m\]"
+export MAGENTA="\[\033[0;35m\]"
+export CYAN="\[\033[0;36m\]"
+export WHITE="\[\033[0;37m\]"
 
 # Emphasized (bolded) colors
-export EMBLACK="\033[1;30m"
-export EMRED="\033[1;31m"
-export EMGREEN="\033[1;32m"
-export EMYELLOW="\033[1;33m"
-export EMBLUE="\033[1;34m"
-export EMMAGENTA="\033[1;35m"
-export EMCYAN="\033[1;36m"
-export EMWHITE="\033[1;37m"
+export EMBLACK="\[\033[1;30m\]"
+export EMRED="\[\033[1;31m\]"
+export EMGREEN="\[\033[1;32m\]"
+export EMYELLOW="\[\033[1;33m\]"
+export EMBLUE="\[\033[1;34m\]"
+export EMMAGENTA="\[\033[1;35m\]"
+export EMCYAN="\[\033[1;36m\]"
+export EMWHITE="\[\033[1;37m\]"
 
 # Underlined regular colors
-export UNBLACK="\033[4;30m"
-export UNRED="\033[4;31m"
-export UNGREEN="\033[4;32m"
-export UNYELLOW="\033[4;33m"
-export UNBLUE="\033[4;34m"
-export UNMAGENTA="\033[4;35m"
-export UNCYAN="\033[4;36m"
-export UNWHITE="\033[4;37m"
+export UNBLACK="\[\033[4;30m\]"
+export UNRED="\[\033[4;31m\]"
+export UNGREEN="\[\033[4;32m\]"
+export UNYELLOW="\[\033[4;33m\]"
+export UNBLUE="\[\033[4;34m\]"
+export UNMAGENTA="\[\033[4;35m\]"
+export UNCYAN="\[\033[4;36m\]"
+export UNWHITE="\[\033[4;37m\]"
 
 # Background colors
-export BGBLACK="\033[40m"
-export BGRED="\033[41m"
-export BGGREEN="\033[42m"
-export BGYELLOW="\033[43m"
-export BGBLUE="\033[44m"
-export BGMAGENTA="\033[45m"
-export BGCYAN="\033[46m"
-export BGWHITE="\033[47m"
+export BGBLACK="\[\033[40m\]"
+export BGRED="\[\033[41m\]"
+export BGGREEN="\[\033[42m\]"
+export BGYELLOW="\[\033[43m\]"
+export BGBLUE="\[\033[44m\]"
+export BGMAGENTA="\[\033[45m\]"
+export BGCYAN="\[\033[46m\]"
+export BGWHITE="\[\033[47m\]"

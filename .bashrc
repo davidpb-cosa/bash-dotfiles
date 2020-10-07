@@ -5,20 +5,12 @@
 # @author losedavidpb
 #
 
-# Store absolute cosa-dotfiles path
-_DFPATH=$(find $HOME -name bash-dotfiles -not -path "*.*" | head -1)
+source ~/.config/shell/exports
+source ~/.config/shell/functions
+source ~/.config/shell/aliases
 
-if [[ -z $_DFPATH ]]; then
-	source ~/exports
-	source ~/functions
-	source ~/aliases
-else
-	source $_DFPATH/exports
-	source $_DFPATH/functions
-	source $_DFPATH/aliases
-fi
+# Current PROMPT string for bash
+PS1="$MAGENTA\s[$ENDCOLOR$EMMAGENTA\u \W$ENDCOLOR$MAGENTA] >>> $ENDCOLOR"
 
-PS1="$MAGENTA\[$ENDCOLOR$EMMAGENTA\u \W$ENDCOLOR$MAGENTA\] >>> $ENDCOLOR"
+# Display general information about current system
 sysinfo
-
-unset _DFPATH
