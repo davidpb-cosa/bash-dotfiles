@@ -9,7 +9,7 @@
 # Some functions of this script are not completely tested,
 # so do not use them unless you know what you're doing!!
 #
-# @author davidpb-cosa
+# @author losedavidpb
 #
 
 DFPATH=$(find $HOME -name bash-dotfiles -not -path "*.*" | head -1)
