@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# @author davidpb-cosa
+# @author losedavidpb
 #
 
 DFPATH=$(find $HOME -name bash-dotfiles -not -path "*.*" | head -1)
