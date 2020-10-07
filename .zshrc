@@ -1,7 +1,7 @@
 #
 # ~/.zshrc
 #
-# @author davidpb-cosa
+# @author losedavidpb
 #
 
 # Store absolute cosa-dotfiles path
