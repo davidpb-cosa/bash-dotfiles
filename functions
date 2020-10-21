@@ -11,6 +11,26 @@
 
 source ~/.config/shell/aliases
 
+# << SHELL FUNCTIONS >>
+clean_shell_tmp_folder () {
+	rm -rf $DOTFILES_PATH/tmp/ &>/dev/null
+}
+
+clean_shell_cache_folder () {
+	rm -rf $DOTFILES_PATH/cache/ &>/dev/null
+}
+
+# Show docummentation for a specific command
+# # usage: show_help_function <name_command>
+show_help () {
+	if [[ -f $DOTFILES_PATH/help/$1.help ]]; then
+		cat $DOTFILES_PATH/help/$1.help
+	else
+		echo "'$1' has no docummentation"
+	fi
+}
+# << CLOSE SHELL FUNCTIONS >>
+
 # Show available prompt colors for default Linux bash
 colorsinfo () {
 	local fgc bgc vals seq0

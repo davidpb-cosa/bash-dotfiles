@@ -24,6 +24,7 @@ _mv_link_dotfiles () {
 	cp $PWD/functions ~/.config/shell
 	cp $PWD/.bashrc ~/.config/shell/rc
 	cp $PWD/.zshrc ~/.config/shell/rc
+	cp -rf $PWD/help/ ~/.config/shell/
 	
 	ln -sf ~/.config/shell/rc/.bashrc ~/.bashrc
 	ln -sf ~/.config/shell/rc/.zshrc ~/.zshrc

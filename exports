@@ -28,6 +28,9 @@ pathappend () {
   fi
 }
 
+# Default path for the installation
+export DOTFILES_PATH=~/.config/shell
+
 # Default editor and terminal
 export EDITOR=/usr/bin/nano
 export TERMINAL=/usr/bin/termite
@@ -62,6 +65,7 @@ pathappend /usr/bin/core_perl
 pathappend /usr/lib/jvm/default/bin
 
 # Extra directories for variable PATH
+pathappend $DOTFILES_PATH
 pathappend $PROGRAMMING_PATH
 pathappend $PROGRAMMING_PATH/local
 pathappend $PROGRAMMING_PATH/github
