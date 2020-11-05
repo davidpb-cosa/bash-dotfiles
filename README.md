@@ -1,3 +1,5 @@
+<img src="logo.png" align="right" height=150px width=180px />
+
 # BASH .FILES CONFIGURATION
 
 Bash, ZSH and Neofetch configuration (see exports to select bash or zsh)
