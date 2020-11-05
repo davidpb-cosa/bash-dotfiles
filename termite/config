@@ -1,0 +1,46 @@
+#
+# ~/.config/termite/config
+#
+# Config file for termite console emulator
+# ----------------------------------------
+#
+# @author davidpb-cosa
+#
+
+[options]
+font = Monospace 13
+audible_bell = false
+allow_bold = true
+bold_is_bright = true
+clickable_url = true
+hyperlinks = true
+mouse_autohide = true
+scrollback_lines = 10000
+scrollbar = right
+cursor_blink = system
+cursor_shape = block
+browser = xdg-open
+
+[colors]
+foreground = #dcdccc
+foreground_bold = #ffffff
+background = rgba(63, 63, 63, 0.8)
+highlight = #2f2f2f
+
+# Colors from color0 to color254 can be set
+color0 = #665c54
+color1 = #ea6962
+color2 = #a9b665
+color3 = #e78a4e
+color4 = #7daea3
+color5 = #d3869b
+color6 = #89b482
+color7 = #d4be98
+color8 = #928374
+color9 = #ea6962
+color10 = #a9b665
+color11 = #d8a657
+color12 = #7daea3
+color13 = #d3869b
+color14 = #89b482
+color15 = #d4be98

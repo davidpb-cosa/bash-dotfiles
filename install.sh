@@ -3,33 +3,30 @@
 # @author losedavidpb
 #
 
-# Create a .tar backup to store old user dotfiles.
-# This function won't work unless tar package is installed!
 _backup_dotfiles () {
 	rm -rf ~/.config/shell/old-dotfiles
 	mkdir -p ~/.config/shell/old-dotfiles
 
-  	cp -r ~/.bashrc ~/.config/shell/old-dotfiles/
-  	cp -r ~/.zshrc ~/.config/shell/old-dotfiles/
+  	cp -rf ~/.bashrc ~/.config/shell/old-dotfiles/
+  	cp -rf ~/.zshrc ~/.config/shell/old-dotfiles/
 
 	tar -czvf ~/.config/shell/old-dotfiles.tar ~/.config/shell/old-dotfiles &>/dev/null
 	rm -rf ~/.config/shell/old-dotfiles
 }
 
-# Moves all dotfiles to ~/.config/shell folder and links all the rc files
 _mv_link_dotfiles () {
-	cp $PWD/ascii_icon ~/.config/shell
-	cp $PWD/exports ~/.config/shell
-	cp $PWD/aliases ~/.config/shell
-	cp $PWD/functions ~/.config/shell
-	cp $PWD/.bashrc ~/.config/shell/rc
-	cp $PWD/.zshrc ~/.config/shell/rc
-	cp -rf $PWD/help/ ~/.config/shell/
+	cp -rf $PWD/ascii_icon ~/.config/shell
+	cp -rf $PWD/exports ~/.config/shell
+	cp -rf $PWD/aliases ~/.config/shell
+	cp -rf $PWD/functions ~/.config/shell
+	cp -rf $PWD/.bashrc ~/.config/shell/rc
+	cp -rf $PWD/.zshrc ~/.config/shell/rc
 	
 	ln -sf ~/.config/shell/rc/.bashrc ~/.bashrc
 	ln -sf ~/.config/shell/rc/.zshrc ~/.zshrc
 	
-	cp $PWD/neofetch/config.conf ~/.config/neofetch/
+	cp -rf $PWD/neofetch/config.conf ~/.config/neofetch/
+	cp -rf $PWD/termite/config ~/.config/termite/
 }
 
 clear
@@ -40,6 +37,7 @@ echo -e "\033[1;33m>>\e[m \033[1;34m SETUP FOR \033[4;36mBASH DOTFILES\e[m\e[m \
 echo -e "\033[1;34m==============================\e[m"
 
 mkdir -p ~/.config/neofetch &>/dev/null
+mkdir -p ~/.config/termite &>/dev/null
 mkdir -p ~/.config/shell/rc &>/dev/null
 mkdir -p ~/.config/shell/tmp &>/dev/null
 mkdir -p ~/.config/shell/cache &>/dev/null
@@ -63,6 +61,9 @@ while true; do
     break
   fi
 done
+
+rm -rf ~/.config/neofetch/*
+rm -rf ~/.config/termite/*
 
 echo ">> Moving and linking all the bash .files ..."
 _mv_link_dotfiles &>/dev/null

@@ -5,6 +5,7 @@ Bash, ZSH and Neofetch configuration (see exports to select bash or zsh)
 ## Requirements
 
 * neofetch package base
+* termite package base
 * zsh package base
 * zsh-syntax-highlighting
 * zsh-history-substring-search
@@ -21,8 +22,3 @@ cd <BASH_DOTFILES_PATH>
 rm -rf <BASH_DOTFILES_PATH>
 reboot
 ```
-
-## Other cool stuff of myself
-
-* ArchLinux .files:  https://github.com/losedavidpb/arch-dotfiles
-* Awesome WM config: https://github.com/losedavidpb/awesome-config
