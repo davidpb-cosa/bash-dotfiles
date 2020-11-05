@@ -11,8 +11,8 @@ source ~/.config/shell/aliases
 # Enable autocompletion using a cache for faster startup
 autoload -Uz compinit
 typeset -i updated_at=$(
-	date +'%j' -r ~/.config/shell/zsh/.zcompdump 2>/dev/null ||
-	stat -f '%Sm' -t '%j' ~/.config/shell/zsh/.zcompdump 2>/dev/null
+	date +'%j' -r ~/.config/shell/zsh-cache/.zcompdump 2>/dev/null ||
+	stat -f '%Sm' -t '%j' ~/.config/shell/zsh-cache/.zcompdump 2>/dev/null
 )
 
 if [ $(date +'%j') != $updated_at ]; then
@@ -119,9 +119,9 @@ setopt prompt_subst
 
 # Define PROMPT variable according to GID
 if [[ $(id -G) = 0 ]]; then
-	PROMPT="%(?.%F{green}√.%F{red}X) %F{111}$SHELL_NAME [%f %B%F{117}/root %1~%f%b %F{111}] >>> %f"
+	PROMPT="%(?.%F{green}√.%F{red}X) %F{111}$SHELL_NAME[%f %B%F{117}/root %1~%f%b %F{111}] >>> %f"
 else
-	PROMPT="%(?.%F{green}√.%F{red}X) %F{133}$SHELL_NAME [%f %B%F{134}%n %1~%f%b %F{133}] >>> %f"
+	PROMPT="%(?.%F{green}√.%F{red}X) %F{133}$SHELL_NAME[%f %B%F{134}%n %1~%f%b %F{133}] >>> %f"
 fi
 
 # Modify the colors and symbols in these variables as desired.
