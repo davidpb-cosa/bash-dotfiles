@@ -30,36 +30,37 @@ case $PACKAGE_MANAGER in
 	;;
 esac
 
-alias .="cd ../"						  					            # go back just once
-alias ..="cd ../.."						  					          # go back twice
-alias dl="cd ~/Downloads"									          # shortcut to downloads
-alias dc="cd  ~/Documents"								          # shortcut to documents
-alias cdl="cd ~/projects/local"                     # shortcut to local projects
-alias cdg="cd ~/projects/github"                    # shortcut to github projects
+alias reload_bash="source ~/.bashrc"         # reload bash config
+alias reload_zsh="source ~/.zshrc"           # reload zsh config
 
-alias ls="ls --color=auto -F"				 			 	        # show current files with colors
-alias lls="ls -l --color=auto -F"			  				    # show detailed current files with colors
-alias lsd="ls -lCd .?* --color=auto -F"	  					# show current dotfiles with colors
-alias llsd="ls -ld .?* --color=auto -F"	  					# show detailed current dotfiles with colors
-alias lsa="ls -laC --color=auto -F"		  					  # show all current files with colors
-alias llsa="ls -la --color=auto -F"		  				    # show all detailed current files with colors
+alias .="cd ../"                             # go back just once
+alias ..="cd ../.."                          # go back twice
+alias dl="cd ~/Downloads"                    # shortcut to downloads
+alias dc="cd  ~/Documents"                   # shortcut to documents
 
-alias grep='grep --colour=auto'		  					      # find with greep with colors
-alias egrep='egrep --colour=auto'		 					      # find with egreep with colors
-alias fgrep='fgrep --colour=auto'	      					  # find with fgreep with colors
+alias ls="ls --color=auto -F"                # show current files with colors
+alias lls="ls -l --color=auto -F"            # show detailed current files with colors
+alias lsd="ls -lCd .?* --color=auto -F"      # show current dotfiles with colors
+alias llsd="ls -ld .?* --color=auto -F"      # show detailed current dotfiles with colors
+alias lsa="ls -laC --color=auto -F"          # show all current files with colors
+alias llsa="ls -la --color=auto -F"          # show all detailed current files with colors
 
-alias df="df -h"                          					# human-readable sizes
-alias dfdev="df -Th | grep '^/dev'"							    # human-readable sizes for devs
-alias free="free -m"                      					# show sizes in MB
+alias grep='grep --colour=auto'              # find with greep with colors
+alias egrep='egrep --colour=auto'            # find with egreep with colors
+alias fgrep='fgrep --colour=auto'            # find with fgreep with colors
 
-alias more=less							  					            # both commands do the same
-alias cp="cp -i"                          					# confirm before overwriting something
-alias rrm="rm -Rf "						  					          # remove all files inside current directory
-alias cls="clear"						  					            # clear current terminal
+alias df="df -h"                             # human-readable sizes
+alias dfdev="df -Th | grep '^/dev'"          # human-readable sizes for devs
+alias free="free -m"                         # show sizes in MB
+
+alias more=less                              # both commands do the same
+alias cp="cp -i"                             # confirm before overwriting something
+alias rrm="rm -R "                           # remove all files inside current directory
+alias cls="clear"                            # clear current terminal
 
 # GNU/Linux System information
 alias sysinfo="neofetch --source ~/.config/shell/ascii_icon --colors 133 249 255 133 255"
-alias cpuinfo="cat /proc/cpuinfo | grep 'model name' | cut -d ":" -f 2 | uniq"
+alias cpuinfo="grep 'model name' /proc/cpuinfo | cut -d ":" -f 2 | uniq"
 alias osinfo="echo $(uname -o) $(uname -m)"
 alias uptime="uptime -p | cut -c 4-"
 alias kernelinfo="uname -r"

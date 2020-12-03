@@ -5,7 +5,7 @@
 
 # Append path to global variable PATH with no redundance
 # # usage: pathappend <absolute_path>
-pathappend () {
+function pathappend () {
   if [[ $# = 1 ]]; then
     local actpath=$(echo $PATH | cut -d ":" -f 1)
     local condappend=1
@@ -40,9 +40,6 @@ export SHELL_NAME=bash
 # Make Python use UTF-8 encoding for output to stdin, stdout, and stderr.
 export PYTHONIOENCODING='UTF-8';
 
-# General environment path
-export PROGRAMMING_PATH=$HOME/projects
-
 # Bash/Zsh preferences
 export ZDOTDIR=~/.config/shell
 export WORDCHARS=${WORDCHARS//\/[&.;]}
@@ -66,9 +63,6 @@ pathappend /usr/lib/jvm/default/bin
 
 # Extra directories for variable PATH
 pathappend $DOTFILES_PATH
-pathappend $PROGRAMMING_PATH
-pathappend $PROGRAMMING_PATH/local
-pathappend $PROGRAMMING_PATH/github
 
 # Package manager variables
 export PACKAGE_MANAGER

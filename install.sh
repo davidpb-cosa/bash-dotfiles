@@ -10,7 +10,7 @@ _backup_dotfiles () {
   	cp -rf ~/.bashrc ~/.config/shell/old-dotfiles/
   	cp -rf ~/.zshrc ~/.config/shell/old-dotfiles/
 
-	tar -czvf ~/.config/shell/old-dotfiles.tar ~/.config/shell/old-dotfiles &>/dev/null
+	tar -czf ~/.config/shell/old-dotfiles.tar ~/.config/shell/old-dotfiles
 	rm -rf ~/.config/shell/old-dotfiles
 }
 
