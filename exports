@@ -67,8 +67,8 @@ pathappend $DOTFILES_PATH
 # Package manager variables
 export PACKAGE_MANAGER
 
-declare -a pack_manager=(yum pacman)
-declare -a file_path=(redhat-release arch-release)
+declare -a pack_manager=(yum pacman apt apt-get)
+declare -a file_path=(redhat-release arch-release lsb-release lsb-release)
 
 for (( i=0; i<${#file_path[@]}; i++ )); do
 	if [[ -f /etc/${file_path[$i]} ]]; then
