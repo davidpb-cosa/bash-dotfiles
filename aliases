@@ -17,7 +17,23 @@ case $PACKAGE_MANAGER in
 		alias uninstall="sudo yum remove"
 		alias update="sudo yum update"
 		alias list_all_packs="yum list"
-		alias search_pack="yum list | grep"
+		alias search_pack="yum list | egrep"
+	;;
+
+	"apt")
+		alias install="sudo apt install"
+		alias uninstall="sudo apt remove"
+		alias update="sudo apt update"
+		alias list_all_packs="sudo apt list"
+		alias search_pack="sudo apt list | egrep"
+	;;
+
+	"apt-get")
+		alias install="sudo apt-get install"
+		alias uninstall="sudo apt-get remove"
+		alias update="sudo apt-get update"
+		alias list_all_packs="sudo apt-get list"
+		alias search_pack="sudo apt list | egrep"
 	;;
 
 	# Default value for pacman package manager
@@ -54,8 +70,9 @@ alias dfdev="df -Th | grep '^/dev'"          # human-readable sizes for devs
 alias free="free -m"                         # show sizes in MB
 
 alias more=less                              # both commands do the same
-alias cp="cp -i"                             # confirm before overwriting something
-alias rrm="rm -R "                           # remove all files inside current directory
+alias cpi="cp -i"                            # confirm before overwriting something
+alias cpr="cp -r"							 # copy files and directories
+alias rrm="rm -fR "                          # remove all files inside current directory
 alias cls="clear"                            # clear current terminal
 
 # GNU/Linux System information
