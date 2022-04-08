@@ -109,6 +109,7 @@ function _install_zsh_plugins () {
 function _prepare_dotfiles () {
 	rm -rf ~/.config/shell/ &>/dev/null
 
+	mkdir -p ~/.config/Hyper &>/dev/null
 	mkdir -p ~/.config/neofetch &>/dev/null
 	mkdir -p ~/.config/termite &>/dev/null
 	mkdir -p ~/.config/shell/bash &>/dev/null
@@ -149,7 +150,7 @@ function _install_dotfiles () {
 	ln -sf ~/.config/shell/bash/profile.bash ~/.profile
 	ln -sf ~/.config/shell/zsh/.zshrc ~/.zshrc
 
-	cp -rf $PWD/hyper/hyper.js ~/.config/hyper/
+	cp -rf $PWD/hyper/hyper.js ~/.config/Hyper/
 	cp -rf $PWD/neofetch/config.conf ~/.config/neofetch/
 	cp -rf $PWD/termite/config ~/.config/termite/
 }

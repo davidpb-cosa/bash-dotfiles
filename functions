@@ -67,6 +67,8 @@ function shellhelp () {
 # functions, aliases, or exports.
 # # usage: reload-bash
 function reload-all-bash () {
+	# TODO: when reload an new bash, old shells would be
+	# as a sleeping process, and this is a problem
 	case $SHELL_NAME in
 		bash) bash ;;
 		zsh) zsh ;;
