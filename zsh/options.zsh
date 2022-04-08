@@ -2,10 +2,27 @@
 #!/bin/zsh
 #
 
-# Autocompletion using a cache
+# Speeds up load time
+DISABLE_UPDATE_PROMPT=true
+
+# Perform compinit only once a day.
 autoload -Uz compinit
-typeset -i updated_at=$(date +'%j' -r ~/.config/shell/.zcompdump 2>/dev/null || stat -f '%Sm' -t '%j' ~/.config/shell/.zcompdump 2>/dev/null)
-[ $(date +'%j') != $updated_at ] && compinit ||  compinit -C
+
+setopt EXTENDEDGLOB
+for dump in $ZSH_COMPDUMP(#qN.m1); do
+  compinit
+  if [[ -s "$dump" && (! -s "$dump.zwc" || "$dump" -nt "$dump.zwc") ]]; then
+    zcompile "$dump"
+  fi
+  echo "Initializing Completions..."
+done
+unsetopt EXTENDEDGLOB
+compinit -
+
+# Autocompletion using a cache
+#autoload -Uz compinit
+#typeset -i updated_at=$(date +'%j' -r ~/.config/shell/.zcompdump 2>/dev/null || stat -f '%Sm' -t '%j' ~/.config/shell/.zcompdump 2>/dev/null)
+#[ $(date +'%j') != $updated_at ] && compinit ||  compinit -C
 
 # Should be called before compinit
 zmodload -i zsh/complist
@@ -77,3 +94,6 @@ autoload run-help-svk
 
 unalias run-help &>/dev/null
 alias help=run-help
+
+# Speeds up load time
+DISABLE_UPDATE_PROMPT=true

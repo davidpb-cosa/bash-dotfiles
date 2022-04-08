@@ -124,31 +124,31 @@ function _prepare_dotfiles () {
 }
 
 function _backup_dotfiles () {
-	rm -rf $DOTFILES_PATH/old-dotfiles
-	mkdir -p $DOTFILES_PATH/old-dotfiles
+	rm -rf ~/.config/shell/old-dotfiles
+	mkdir -p ~/.config/shell/old-dotfiles
 
-  	cp -rf ~/.bashrc $DOTFILES_PATH/old-dotfiles/
-  	cp -rf ~/.zshrc $DOTFILES_PATH/old-dotfiles/
+  	cp -rf ~/.bashrc ~/.config/shell/old-dotfiles/
+  	cp -rf ~/.zshrc ~/.config/shell/old-dotfiles/
 
-	tar -czf $DOTFILES_PATH/old-dotfiles.tar $DOTFILES_PATH/old-dotfiles
-	rm -rf $DOTFILES_PATH/old-dotfiles
+	tar -czf ~/.config/shell/old-dotfiles.tar ~/.config/shell/old-dotfiles
+	rm -rf ~/.config/shell/old-dotfiles
 }
 
 function _install_dotfiles () {
-	cp -rf $PWD/bash/*.bash $DOTFILES_PATH/bash
-	mv $DOTFILES_PATH/bash/bashrc.bash $DOTFILES_PATH/bash/.bashrc
+	cp -rf $PWD/bash/*.bash ~/.config/shell/bash
 
-	cp -rf $PWD/zsh/*.zsh $DOTFILES_PATH/zsh
-	mv $DOTFILES_PATH/zsh/zshrc.zsh $DOTFILES_PATH/zsh/.zshrc
+	cp -rf $PWD/zsh/*.zsh ~/.config/shell/zsh
+	mv ~/.config/shell/zsh/zshrc.zsh ~/.config/shell/zsh/.zshrc
 
 	cp -rf $PWD/neofetch/ascii_icon ~/.config/neofetch
-	cp -rf $PWD/exports $DOTFILES_PATH
-	cp -rf $PWD/aliases $DOTFILES_PATH
-	cp -rf $PWD/functions $DOTFILES_PATH
+	cp -rf $PWD/exports ~/.config/shell
+	cp -rf $PWD/aliases ~/.config/shell
+	cp -rf $PWD/functions ~/.config/shell
 
-	ln -sf $DOTFILES_PATH/bash/.bashrc ~/.bashrc
-	ln -sf $DOTFILES_PATH/zsh/.zshrc ~/.zshrc
-	
+	ln -sf ~/.config/shell/bash/bashrc.bash ~/.bashrc
+	ln -sf ~/.config/shell/bash/profile.bash ~/.profile
+	ln -sf ~/.config/shell/zsh/.zshrc ~/.zshrc
+
 	cp -rf $PWD/hyper/hyper.js ~/.config/hyper/
 	cp -rf $PWD/neofetch/config.conf ~/.config/neofetch/
 	cp -rf $PWD/termite/config ~/.config/termite/

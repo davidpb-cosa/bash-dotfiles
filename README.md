@@ -23,6 +23,7 @@ content you should know in order to modify my dotfiles.
 - __old_dotfiles.tar:__ .files copies created if backup was done at `install.sh`
 - __neofetch:__ configuration for neofetch that includes an ascii icon
 - __termite:__ configuration for termite shell
+- __hyper:__ configuration for hyper shell
 
 ## Requirements
 

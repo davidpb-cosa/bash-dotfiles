@@ -15,8 +15,8 @@ module.exports = {
         fontWeight: 'normal',
         // font weight for bold characters: 'normal' or 'bold'
         fontWeightBold: 'bold',
-	    // the default width/height in pixels of a new windows
-		windowSize: [870, 500],
+        // the default width/height in pixels of a new windows
+        windowSize: [870, 500],
         // line height as a relative unit
         lineHeight: 1,
         // letter spacing as a relative unit
@@ -34,8 +34,8 @@ module.exports = {
         // terminal background color
         // opacity is only supported on macOS
         backgroundColor: '#1f2329',
-	    // terminal opacity for background
-	    opacity: 0.96,
+        // terminal opacity for background
+        opacity: 0.96,
         // terminal selection color
         selectionColor: 'rgba(248,28,229,0.3)',
         // border color (window, tabs)
@@ -69,7 +69,7 @@ module.exports = {
         // additionally, set to `'left'` if you want them on the left, like in Ubuntu
         // default: `true` (without backticks and without quotes) on Windows and Linux, ignored on macOS
         showWindowControls: true,
-	    // the number of rows to be persisted in terminal buffer for scrolling
+        // the number of rows to be persisted in terminal buffer for scrolling
         scrollback: 10000,
         // custom padding (CSS format, i.e.: `top right bottom left`)
         padding: '12px 14px',
@@ -77,23 +77,23 @@ module.exports = {
         // including the 6 x 6 color cubes and the grayscale map, just provide
         // an array here instead of a color map object
         colors: {
- 		    black: '#000000',
-		    red: '#ff0000',
-      		green: '#33ff00',
-      		yellow: '#ffff00',
-      		blue: '#0066ff',
-      		magenta: '#cc00ff',
-      		cyan: '#00ffff',
-      		white: '#d0d0d0',
-      		lightBlack: '#808080',
-     	 	lightRed: '#ff0000',
-      		lightGreen: '#33ff00',
-      		lightYellow: '#ffff00',
-      		lightBlue: '#0066ff',
-      		lightMagenta: '#cc00ff',
-      		lightCyan: '#00ffff',
-      		lightWhite: '#ffffff'
-		},
+            black: '#000000',
+            red: '#ff0000',
+            green: '#33ff00',
+            yellow: '#ffff00',
+            blue: '#0066ff',
+            magenta: '#cc00ff',
+            cyan: '#00ffff',
+            white: '#d0d0d0',
+            lightBlack: '#808080',
+            lightRed: '#ff0000',
+            lightGreen: '#33ff00',
+            lightYellow: '#ffff00',
+            lightBlue: '#0066ff',
+            lightMagenta: '#cc00ff',
+            lightCyan: '#00ffff',
+            lightWhite: '#ffffff'
+        },
         // the shell to run when spawning a new session (i.e. /usr/local/bin/fish)
         // if left empty, your system's login shell will be used by default
         //
@@ -150,12 +150,12 @@ module.exports = {
         // set to true to preserve working directory when creating splits or tabs
         preserveCWD: true,
         // for advanced config flags please refer to https://hyper.is/#cfg
-	    hyperBorder: {
-			animate: true,
-            	borderRadiusOuter: '100px',
-            	borderRadiusOuter: '5px',
-            	borderWidth: '5px',
-         }
+        hyperBorder: {
+            animate: true,
+            borderRadiusOuter: '100px',
+            borderRadiusOuter: '5px',
+            borderWidth: '5px',
+        }
     },
     // a list of plugins to fetch and install from npm
     // format: [@org/]project[#version]
@@ -163,19 +163,19 @@ module.exports = {
     //   `hyperpower`
     //   `@company/project`
     //   `project#1.0.1`
-	plugins: [
-		"hyperpower",
-	    "hyper-systray",
-   		"hyper-opacity",
-	    "hyper-tab-icons"
-	],
+    plugins: [
+        "hyperpower",
+        "hyper-systray",
+        "hyper-opacity",
+        "hyper-tab-icons"
+    ],
     // in development, you can create a directory under
     // `~/.hyper_plugins/local/` and include it here
     // to load it and avoid it being `npm install`ed
     localPlugins: [],
     keymaps: {
-    // Example
-    // 'window:devtools': 'cmd+alt+o',
+        // Example
+        // 'window:devtools': 'cmd+alt+o',
     },
 };
 //# sourceMappingURL=config-default.js.map

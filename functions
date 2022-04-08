@@ -68,8 +68,8 @@ function shellhelp () {
 # # usage: reload-bash
 function reload-all-bash () {
 	case $SHELL_NAME in
-		bash) source ~/.bashrc ;;
-		zsh) source ~/.zshrc ;;
+		bash) bash ;;
+		zsh) zsh ;;
 		*) showerr "reload-bash" "invalid shell" "reload-bash"; return 1 ;;
     esac
 }
@@ -78,6 +78,8 @@ function reload-all-bash () {
 # that was done at internal files
 # # usage: reload-bash
 function reload-bash () {
+	source ~/.config/shell/exports
+	source ~/.config/shell/aliases
 	source ~/.config/shell/functions
 }
 
@@ -167,12 +169,20 @@ function chshell () {
 			setexport SHELL /bin/bash
 			setexport SHELL_NAME bash
 			setexport HISTFILE  ~/.config/shell/.bash_history
+			reload-bash
+
+			sudo chsh -s $(which bash)
+			reload-all-bash
 		;;
 
 		zsh)
 			setexport SHELL /bin/zsh
 			setexport SHELL_NAME zsh
 			setexport HISTFILE  ~/.config/shell/.zhistory
+			reload-bash
+
+			sudo chsh -s $(which zsh)
+			reload-all-bash
 		;;
 
 		*)
