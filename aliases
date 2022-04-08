@@ -24,16 +24,16 @@ case $PACKAGE_MANAGER in
 		alias install="sudo apt install"
 		alias uninstall="sudo apt remove"
 		alias update="sudo apt update"
-		alias list_all_packs="sudo apt list"
-		alias search_pack="sudo apt list | egrep"
+		alias list_all_packs="apt list"
+		alias search_pack="apt list | egrep"
 	;;
 
 	"apt-get")
 		alias install="sudo apt-get install"
 		alias uninstall="sudo apt-get remove"
 		alias update="sudo apt-get update"
-		alias list_all_packs="sudo apt-get list"
-		alias search_pack="sudo apt list | egrep"
+		alias list_all_packs="apt list"
+		alias search_pack="apt list | egrep"
 	;;
 
 	# Default value for pacman package manager
@@ -46,13 +46,19 @@ case $PACKAGE_MANAGER in
 	;;
 esac
 
-alias reload_bash="source ~/.bashrc"         # reload bash config
-alias reload_zsh="source ~/.zshrc"           # reload zsh config
-
 alias .="cd ../"                             # go back just once
 alias ..="cd ../.."                          # go back twice
 alias dl="cd ~/Downloads"                    # shortcut to downloads
 alias dc="cd  ~/Documents"                   # shortcut to documents
+
+alias cwsl="cd $WSL_FS"					     # shortcut to WSL file system
+alias cdwslh="cd $WSL_HOME"					 # shortcut to WSL home
+
+alias wsldl="cd $WSL_HOME/Downloads"		 # shortcut to WSL downloads
+alias wsldc="cd $WSL_HOME/Documents"		 # shortcut to WSL documens
+alias cdapps="cd $WSL_APPS"					 # shortcut to WSL Apps
+alias cdulpgc="cd $WSL_APPS"				 # shortcut to WSL ULPGC
+alias cdcurrcourse="cd $WSL_APPS"			 # shortcut to WSL current course
 
 alias ls="ls --color=auto -F"                # show current files with colors
 alias lls="ls -l --color=auto -F"            # show detailed current files with colors
@@ -76,7 +82,7 @@ alias rrm="rm -fR "                          # remove all files inside current d
 alias cls="clear"                            # clear current terminal
 
 # GNU/Linux System information
-alias sysinfo="neofetch --source ~/.config/shell/ascii_icon --colors 133 249 255 133 255"
+alias sysinfo="neofetch --source ~/.config/neofetch/ascii_icon --colors 133 249 255 133 255 255"
 alias cpuinfo="grep 'model name' /proc/cpuinfo | cut -d ":" -f 2 | uniq"
 alias osinfo="echo $(uname -o) $(uname -m)"
 alias uptime="uptime -p | cut -c 4-"

@@ -28,27 +28,40 @@ function pathappend () {
   fi
 }
 
-# Default path for the installation
-export DOTFILES_PATH=~/.config/shell
+# Terminfo color
+export TERM=xterm-256color
+
+# Visual mode for start
+export SHELL_STARTUP_MODE=pretty
 
 # Default editor and terminal
 export EDITOR=/usr/bin/nano
 export TERMINAL=/usr/bin/termite
-export SHELL=/bin/bash	# or /bin/bash
-export SHELL_NAME=bash
+export SHELL=/bin/bash	# or /bin/zsh
+export SHELL_NAME=bash  # or zsh
 
 # Make Python use UTF-8 encoding for output to stdin, stdout, and stderr.
-export PYTHONIOENCODING='UTF-8';
+export PYTHONIOENCODING='UTF-8'
 
-# Bash/Zsh preferences
-export ZDOTDIR=~/.config/shell
+# ZSH settings
+export ZSH=/usr/share/zsh
+export ZSH_PLUGINS=$ZSH/plugins
+
+# Word chars
 export WORDCHARS=${WORDCHARS//\/[&.;]}
-export TMPDIR=~/.config/shell/tmp
-#export HISTFILE=~/.config/shell/tmp/.zhistory
-export HISTFILE=~/.config/shell/tmp/.bash_history
+
+# History settings
+export HISTFILE=~/.config/shell/.bash_history # or ~/.config/shell/.zhistory
 export HISTSIZE=1000
 export SAVEHIST=1000
 export HISTCONTROL=ignoreboth
+
+# WSL configuration
+export WSL_FS=/mnt/c/
+export WSL_HOME=/mnt/c/Users/$USER/
+export WSL_APPS=$WSL_HOME/OneDrive\ -\ Universidad\ de\ Las\ Palmas\ de\ Gran\ Canaria/Apps
+export WSL_ULPGC=$WSL_HOME/OneDrive\ -\ Universidad\ de\ Las\ Palmas\ de\ Gran\ Canaria/ULPGC
+export WSL_CURR_COURSE=$WSL_HOME/OneDrive\ -\ Universidad\ de\ Las\ Palmas\ de\ Gran\ Canaria/ULPGC/4º\ CURSO
 
 # Default directories for variable PATH
 pathappend $HOME/.local/bin
@@ -60,26 +73,23 @@ pathappend /usr/bin/site_perl
 pathappend /usr/bin/vendor_perl
 pathappend /usr/bin/core_perl
 pathappend /usr/lib/jvm/default/bin
-
-# Extra directories for variable PATH
-pathappend $DOTFILES_PATH
+pathappend $WSL_FS
+pathappend $WSL_APPS
 
 # Package manager variables
-export PACKAGE_MANAGER
+export PACKAGE_MANAGER="unkown"
 
 declare -a pack_manager=(yum pacman apt apt-get)
 declare -a file_path=(redhat-release arch-release lsb-release lsb-release)
 
 for (( i=0; i<${#file_path[@]}; i++ )); do
 	if [[ -f /etc/${file_path[$i]} ]]; then
-		PACKAGE_MANAGER=${pack_manager[$i]}
+		export PACKAGE_MANAGER=${pack_manager[$i]}
 		break
 	fi
 done
 
 unset file_path pack_manager
-
-  ### DEFAULT COLOR FOR BASH ###
 
 # End current prompt color
 export ENDCOLOR="\[\e[0m\]"
@@ -104,6 +114,26 @@ export EMMAGENTA="\[\033[1;35m\]"
 export EMCYAN="\[\033[1;36m\]"
 export EMWHITE="\[\033[1;37m\]"
 
+# Colors with darker values
+export DARKBLACK="\[\033[2;30m\]"
+export DARKRED="\[\033[2;31m\]"
+export DARKGREEN="\[\033[2;32m\]"
+export DARKYELLOW="\[\033[2;33m\]"
+export DARKBLUE="\[\033[2;34m\]"
+export DARKMAGENTA="\[\033[2;35m\]"
+export DARKCYAN="\[\033[2;36m\]"
+export DARKWHITE="\[\033[2;37m\]"
+
+# Italic colors
+export IBLACK="\[\033[3;30m\]"
+export IRED="\[\033[3;31m\]"
+export IGREEN="\[\033[3;32m\]"
+export IYELLOW="\[\033[3;33m\]"
+export IBLUE="\[\033[3;34m\]"
+export IMAGENTA="\[\033[3;35m\]"
+export ICYAN="\[\033[3;36m\]"
+export IWHITE="\[\033[3;37m\]"
+
 # Underlined regular colors
 export UNBLACK="\[\033[4;30m\]"
 export UNRED="\[\033[4;31m\]"
@@ -123,3 +153,13 @@ export BGBLUE="\[\033[44m\]"
 export BGMAGENTA="\[\033[45m\]"
 export BGCYAN="\[\033[46m\]"
 export BGWHITE="\[\033[47m\]"
+
+# Color man pages
+export LESS_TERMCAP_mb=$'\E[01;32m'
+export LESS_TERMCAP_md=$'\E[01;32m'
+export LESS_TERMCAP_me=$'\E[0m'
+export LESS_TERMCAP_se=$'\E[0m'
+export LESS_TERMCAP_so=$'\E[01;47;34m'
+export LESS_TERMCAP_ue=$'\E[0m'
+export LESS_TERMCAP_us=$'\E[01;36m'
+export LESS=-r
