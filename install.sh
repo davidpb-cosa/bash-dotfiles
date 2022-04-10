@@ -342,6 +342,8 @@ unset _packages _zsh_plugins
 unset silent_flag no_deps_flag
 unset terminal_name shell_name
 
-echo "Current shell would be reload..."
-reload-bash
-clear; reload-all-bash
+if (( $silent_flag == 0 )); then
+	echo "Current shell would be reload..."
+	reload-bash
+	clear; reload-all-bash
+fi
