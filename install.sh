@@ -129,7 +129,7 @@ function _install_packages () {
 }
 
 function _install_vte_ng () {
-    echo -n ">> Installing package vte ... "
+	(( $silent_flag == 0)) && echo -n ">> Installing package vte ... "
 
     if [[ ! -d vte-ng ]]; then
 		sudo rm -rf vte-ng &>/dev/null
@@ -140,12 +140,12 @@ function _install_vte_ng () {
     export LIBRARY_PATH="/usr/include/gtk-3.0:$LIBRARY_PATH"
     cd vte-ng && sudo ./autogen.sh &>/dev/null && sudo make -s &>/dev/null && sudo make -s install &>/dev/null
     
-    echo "OK"; cd ..
+    cd ..; (( $silent_flag == 0)) && echo "OK"
 	sudo rm -rf vte-ng &>/dev/null
 }
 
 function _install_termite () {
-    echo -n ">> Installing package termite ... "
+	(( $silent_flag == 0)) && echo -n ">> Installing package termite ... "
     
     if [[ ! -d termite ]]; then
 		sudo rm -rf termite &>/dev/null
@@ -164,7 +164,7 @@ function _install_termite () {
     sudo update-alternatives --install /usr/bin/x-terminal-emulator \
         x-terminal-emulator /usr/local/bin/termite 60 &>/dev/null
 	
-    cd ..; echo "OK"
+    cd ..; (( $silent_flag == 0)) && echo "OK"
 	sudo rm -rf termite &>/dev/null
 }
 
