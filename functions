@@ -27,12 +27,17 @@
 #
 # END_DESCRIPTION
 
-source ~/.config/shell/aliases
+script_path="${BASH_SOURCE:-$0}"
+abs_script_path="$(realpath "${script_path}")"
+_shell_abs_script_directory="$(dirname "${abs_script_path}")"
+unset script_path abs_script_path
+
+source $_shell_abs_script_directory/aliases
 
 # Display and error and usage message related to a function.
 # This function would not print anything if parameters are
 # not all defined, but does not check its values.
-# # usage: showerr <FUNC_NAME> <ERR_MESSAGE> <USAGE_MESSAGE>
+#   usage: showerr <FUNC_NAME> <ERR_MESSAGE> <USAGE_MESSAGE>
 function showerr () {
 	if (( $# == 3 )); then
 		echo "error: $1: $2" 1>&2
@@ -46,17 +51,50 @@ function showerr () {
 # it truly exists. If no arguments were passed, this
 # command would show help information for any single
 # function defined
-# # usage: shellhelp <NAME>
+#   usage: shellhelp <NAME> [NAMES ...]
 function shellhelp () {
 	local usage_mssg="shellhelp <NAME>"
 	local error1_mssg="invalid number of arguments"
 	local error2_mssg="cannot be an empty value"
 
 	(( $# < 0 )) && showerr "shellhelp" $error1_mssg $usage_mssg && return 1
-	(( $# > 1 )) && showerr "shellhelp" $error1_mssg $usage_mssg && return 1
-	(( $# == 1 )) && [[ -z $1 ]] && showerr "shellhelp" "NAME $error2_mssg" $usage_mssg && return 1
 	
-	_parse_shellhelp $1
+	if [[ ! -f $_shell_abs_script_directory/.shellhelp-cache ]]; then
+		rm $_shell_abs_script_directory/.date-shellhelp-cache &>/dev/null
+		
+		touch $_shell_abs_script_directory/.shellhelp-cache
+		touch -r $_shell_abs_script_directory/functions $_shell_abs_script_directory/.date-shellhelp-cache
+		_parse_shellhelp > $_shell_abs_script_directory/.shellhelp-cache
+	else
+		local date_curr=$(stat -c %y "$_shell_abs_script_directory/functions")
+		local date_last=$(stat -c %y "$_shell_abs_script_directory/.date-shellhelp-cache")
+
+		if [ ! $date_curr = $date_last ]; then
+			rm $_shell_abs_script_directory/.date-shellhelp-cache &>/dev/null
+			touch -r $_shell_abs_script_directory/functions $_shell_abs_script_directory/.date-shellhelp-cache
+			_parse_shellhelp > $_shell_abs_script_directory/.shellhelp-cache
+		fi
+	fi
+
+	if (( $# == 0 )); then
+		cat "$_shell_abs_script_directory/.shellhelp-cache" | egrep -v "^#"
+	else
+		while (( $# > 0 )); do
+			[[ -z $1 ]] && showerr "shellhelp" "NAME $error2_mssg" $usage_mssg && return 1
+			local temp_dir=$(mktemp)
+			
+			cat $_shell_abs_script_directory/.shellhelp-cache | egrep -n "#$1#" | cut -d ":" -f 1 > $temp_dir
+			
+			local min_value=$(sed -n 1p $temp_dir)
+			min_value=$(($min_value + 1))
+			
+			local max_value=$(sed -n 2p $temp_dir)
+			max_value=$(($max_value - 1))
+			
+			sed -n $min_value,${max_value}p $_shell_abs_script_directory/.shellhelp-cache
+			rm $temp_dir &>/dev/null; shift
+		done
+	fi
 }
 
 # Reload all dotfiles and bash settings.
@@ -65,10 +103,13 @@ function shellhelp () {
 # time to fully load into shell. Please, use
 # reload-bash instead whether you only want to reload
 # functions, aliases, or exports.
-# # usage: reload-bash
+#   usage: reload-bash
 function reload-all-bash () {
-	# TODO: when reload an new bash, old shells would be
-	# as a sleeping process, and this is a problem
+	echo "This function will create a new shell session from current one, so"
+	echo "you have to take into account that if this function is called multiple"
+	echo "times, multiple sessions would be created."
+	sleep 2
+
 	case $SHELL_NAME in
 		bash) bash ;;
 		zsh) zsh ;;
@@ -78,7 +119,7 @@ function reload-all-bash () {
 
 # Reload all dotfiles to apply any changes
 # that was done at internal files
-# # usage: reload-bash
+#   usage: reload-bash
 function reload-bash () {
 	source ~/.config/shell/exports
 	source ~/.config/shell/aliases
@@ -88,7 +129,7 @@ function reload-bash () {
 # Update value for passed global variable or add a new one
 # which passed value. Changes would be applied before
 # executing reload-bash.
-# # usage: setexport <NAME> <VALUE>
+#   usage: setexport <NAME> <VALUE>
 function setexport () {
 	local usage_mssg="setexport <NAME> <VALUE>"
 	local error1_mssg="invalid number of arguments"
@@ -124,7 +165,7 @@ function setexport () {
 
 # Remove passed global variable whether it exists at current
 # exports file. Changes would be applied before executing reload-bash.
-# # usage: rmexport <NAME>
+#   usage: rmexport <NAME>
 function rmexport () {
 	local usage_mssg="rmexport <NAME>"
 	local error1_mssg="invalid number of arguments"
@@ -156,7 +197,7 @@ function rmexport () {
 # Change current shell whether passed value it is an available
 # and valid shell name. Changes would be applied before
 # executing alias reload-bash found at aliases
-# # usage: chshell NAME
+#   usage: chshell NAME
 function chshell () {
 	local usage_mssg="chshell <NAME>"
 	local error1_mssg="invalid number of arguments"
@@ -165,6 +206,8 @@ function chshell () {
 
 	(( $# != 1 )) && showerr "chshell" $error1_mssg $usage_mssg && return 1
 	[[ -z $1 ]] && showerr "chshell" "$1 $error2_mssg" $usage_mssg && return 1
+	
+	local curr_shell=$(ps --no-headers -p $$ -o cmd)
 
 	case $1 in
 		bash)
@@ -174,7 +217,7 @@ function chshell () {
 			reload-bash
 
 			sudo chsh -s $(which bash)
-			reload-all-bash
+			[ $curr_shell = "bash" ] || reload-all-bash
 		;;
 
 		zsh)
@@ -184,7 +227,7 @@ function chshell () {
 			reload-bash
 
 			sudo chsh -s $(which zsh)
-			reload-all-bash
+			[ $curr_shell = "zsh" ] || reload-all-bash
 		;;
 
 		*)
@@ -197,7 +240,7 @@ function chshell () {
 # If this command is executed, next time shell runs it would
 # only load necessary files, since performance is most
 # important than appearance.
-# # usage: set-shell-simple
+#   usage: set-shell-simple
 function set-shell-simple () {
 	setexport SHELL_STARTUP_MODE simple
 }
@@ -211,7 +254,7 @@ function set-shell-pretty () {
 }
 
 # Return current memory porcentage that is not occupied
-# # usage: porcmem
+#   usage: porcmem
 function porcmem () {
 	local column=$(free -w | egrep "Mem:")
 	local porc=$(( $(echo $column | awk '{print $3}') * 100 ))
@@ -223,7 +266,7 @@ function porcmem () {
 # Show information about RAM's status using an human
 # readable output. Status includes number of data used,
 # total capacity, and usage procentage.
-# # usage: raminfo
+#   usage: raminfo
 function raminfo () {
 	local porc=$(porcmem; echo $?)
 
@@ -238,7 +281,7 @@ function raminfo () {
 # human readable output. Data printed include usage,
 # size, porcentage of use, filesystem type, and passed
 # path for target specified
-# # usage: mountinfo <TARGET>
+#   usage: mountinfo <TARGET>
 function mountinfo () {
 	[[ -z $1 ]] && showerr "mountinfo" "target not specified" "mountinfo <TARGET>" && return 1
 
@@ -258,7 +301,7 @@ function mountinfo () {
 
 # Create a script .sh file at current path adjusting its
 # permissions in order to be executable.
-# # usage: mksh <FILE> [FILE, ...]
+#   usage: mksh <FILE> [FILE, ...]
 function mksh () {
 	local usage_mssg="mksh <FILE> [FILE, ...]"
 
@@ -272,7 +315,7 @@ function mksh () {
 
 # Create a new directory and set current working
 # directory at that new folder.
-# # usage: mkd <DIR_PATH>
+#   usage: mkd <DIR_PATH>
 function mkd () {
 	(( $# != 0 )) && showerr "mkd" "invalid number of parameters" "mkd <DIR_PATH>" && return 1
 	mkdir -p "$@" && cd "$_"
@@ -281,7 +324,7 @@ function mkd () {
 # Get size of a file/folder in human readable format.
 # If file or folder is not specified, command would
 # be applied to root path "/"
-# # usage: fs <FILE_PATH>
+#   usage: fs <FILE_PATH>
 function fs () {
 	if [[ -n "$@" ]]; then
 		du -sh -- "$@"
@@ -291,7 +334,7 @@ function fs () {
 }
 
 # Extracts current file according to its format
-# # usage: ex <FILE>
+#   usage: ex <FILE>
 function ex () {
 	(( $# != 1 )) && showerr "ex" "invalid number of arguments" "ex <FILE>" && return 1
 	[[ -z $1 ]] && showerr "ex" "$1 cannot be empty" "ex <FILE>" && return 1
@@ -317,6 +360,64 @@ function ex () {
     esac
 }
 
+# Create an interactive menu using key arrows.
+# You can include a header at the beggining of the menu
+# passing a third parameter with a plain-text file that
+# contains that title.
+#   usage: interactive_menu [HEADER_FILE] SELECTED_OPTION OPTIONS
+function interactive_menu () {
+	local error1_mssg="invalid number of parameters"
+	local usage_mssg="interactive_menu [HEADER_FILE] SELECTED_OPTION OPTIONS"
+
+	(( $# < 2 )) && showerr "interactive_menu" $error1_mssg $usage_mssg
+
+	local header_title=""
+	[[ -f $1 ]] && header_title=$1 && shift
+
+	local function_arguments=($@)
+
+	local selected_item="$1"
+	local menu_items=(${function_arguments[@]:1})
+	local menu_size="${#menu_items[@]}"
+	local menu_limit=$((menu_size - 1))
+
+	clear; [[ ! -z $header_title ]] && echo -e $(cat $header_title)
+	_print_menu "$selected_item" "${menu_items[@]}"
+	
+	while read -rsn1 input; do
+		case "$input" in
+			$'\x1B')
+				read -rsn1 -t 0.1 input
+				if [ "$input" = "[" ]; then
+					read -rsn1 -t 0.1 input
+
+					case "$input" in
+						A)
+							if [ "$selected_item" -ge 1 ]
+							then
+								selected_item=$((selected_item - 1))
+								clear; [[ ! -z $header_title ]] && echo -e $(cat $header_title)
+								_print_menu "$selected_item" "${menu_items[@]}"
+							fi
+						;;
+						B)
+							if [ "$selected_item" -lt "$menu_limit" ]
+							then
+								selected_item=$((selected_item + 1))
+								clear; [[ ! -z $header_title ]] && echo -e $(cat $header_title)
+								_print_menu "$selected_item" "${menu_items[@]}"
+							fi
+						;;
+					esac
+				fi
+
+				read -rsn5 -t 0.1
+			;;
+			"") return "$selected_item" ;;
+		esac
+	done
+}
+
 # PRIVATE FUNCTIONS
 # ===========================
 #
@@ -326,6 +427,22 @@ function ex () {
 #
 # Please do not modify private function heading since
 # some functions could not work as expected
+
+function _print_menu () {
+	local function_arguments=($@)
+
+	local selected_item="$1"
+	local menu_items=(${function_arguments[@]:1})
+	local menu_size="${#menu_items[@]}"
+
+	for (( i = 0; i < $menu_size; ++i )); do
+		if [ "$i" = "$selected_item" ]; then
+			echo -e "  ${EXPAND_HI_BACKGROUND_WHITE}${BOLD_HI_BLACK}${menu_items[i]}${CLOSE_COLOR}"
+		else
+			echo -e "  ${menu_items[i]}"
+		fi
+	done
+}
 
 function _parse_shellhelp () {
 	local func_name=""; local func_description=""; local flag_descr=0
@@ -338,16 +455,8 @@ function _parse_shellhelp () {
 			if [[ ! -z $(echo "$line" | egrep -w "^#.*|^function.*") ]]; then
 				if [[ ! -z $(echo "$line" | egrep -w "^function.*") ]]; then
 					func_name=$(echo "$line" | egrep -w "^function.*" | cut -d " " -f 2)
-
-					if [[ (! -z $1 && $(echo $func_name | egrep -w "$1")) || -z $1 ]]; then
-						if [[ ! -z $1 ]]; then
-							func_description=${func_description::-2}
-							echo -e " * $func_name\n\t$func_description"; break
-						else
-							echo -e " * $func_name\n\t$func_description"
-						fi
-					fi
-
+					echo "#$func_name#\n * $func_name\n\n\t$func_description"
+					echo "#$func_name#"
 					unset func_name func_description
 				else
 					line=$(echo "$line" | tr -d "#" | tr -s " ")
@@ -358,5 +467,5 @@ function _parse_shellhelp () {
 			local cond_flag_descr=$(echo "$line" | egrep -w "# END_DESCRIPTION")
 			[[ ! -z $cond_flag_descr ]] && flag_descr=1 && continue
 		fi
-	done < ~/.config/shell/functions
+	done < $_shell_abs_script_directory/functions
 }

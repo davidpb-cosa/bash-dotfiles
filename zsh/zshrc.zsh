@@ -4,7 +4,7 @@
 # @author losedavidpb
 #
 
-echo "ZSH reloading --- "
+echo "ZSH --- "
 echo "This version is not optimized and takes some minutes to completely"
 echo "reload all dotfiles and general bash settings. If you only want to"
 echo "reload exports, aliases, or functions, just insert reload-bash"

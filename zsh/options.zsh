@@ -9,20 +9,14 @@ DISABLE_UPDATE_PROMPT=true
 autoload -Uz compinit
 
 setopt EXTENDEDGLOB
+
 for dump in $ZSH_COMPDUMP(#qN.m1); do
   compinit
-  if [[ -s "$dump" && (! -s "$dump.zwc" || "$dump" -nt "$dump.zwc") ]]; then
-    zcompile "$dump"
-  fi
-  echo "Initializing Completions..."
+  [[ -s "$dump" && (! -s "$dump.zwc" || "$dump" -nt "$dump.zwc") ]] && zcompile "$dump"
 done
+
 unsetopt EXTENDEDGLOB
 compinit -
-
-# Autocompletion using a cache
-#autoload -Uz compinit
-#typeset -i updated_at=$(date +'%j' -r ~/.config/shell/.zcompdump 2>/dev/null || stat -f '%Sm' -t '%j' ~/.config/shell/.zcompdump 2>/dev/null)
-#[ $(date +'%j') != $updated_at ] && compinit ||  compinit -C
 
 # Should be called before compinit
 zmodload -i zsh/complist

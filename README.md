@@ -38,6 +38,12 @@ manager. In other case, you will need to install manually.
 * [ZSH history substring search](https://github.com/zsh-users/zsh-history-substring-search)
 * [ZSH autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
 
+## Dependencies
+
+Since dependencies could vary between Unix machines, `install.sh` only prepares some
+of them, so it is recommended to check what dependencies you will need for your
+current machine to them prepare it manually.
+
 ## Shell Utilities
 
 As it was mencioned before, `functions` file includes all the utilities that can be
@@ -87,7 +93,7 @@ the dotfiles stored at this repository.
             command would show help information for any single
             function.
         </td>
-        <td style="border: 1px solid white;">shellhelp [NAME]</td>
+        <td style="border: 1px solid white;">shellhelp [NAME] [NAMES ...]</td>
     </tr>
     <tr>
         <td style="border: 1px solid white;">setexport</td>

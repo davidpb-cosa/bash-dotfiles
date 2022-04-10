@@ -8,9 +8,18 @@
 #
 # @author losedavidpb
 
-source ~/.config/shell/exports
+script_path="${BASH_SOURCE:-$0}"
+abs_script_path="$(realpath "${script_path}")"
+_shell_abs_script_directory="$(dirname "${abs_script_path}")"
+unset script_path abs_script_path
 
-# Alias for all commands that use the available package manager
+source $_shell_abs_script_directory/exports
+
+# Aliases for package manager.
+#
+# It is important to notice that this aliases
+# would be defined as expected whether current
+# machine has installed an available one
 case $PACKAGE_MANAGER in
 	"yum")
 		alias install="sudo yum install"
@@ -18,6 +27,30 @@ case $PACKAGE_MANAGER in
 		alias update="sudo yum update"
 		alias list_all_packs="yum list"
 		alias search_pack="yum list | egrep"
+	;;
+
+	"pacman")
+		alias install="sudo pacman -Syyu"
+		alias uninstall="sudo pacman -Rns"
+		alias update="sudo pacman -Syyu"
+		alias list_all_packs="pacman -Q"
+		alias search_pack="pacman -Q | egrep"
+	;;
+
+	"emerger")
+		alias install="sudo emerge"
+		alias uninstall="sudo emerge -C"
+		alias update="sudo emerge -uD world"
+		alias list_all_packs="emerge -s"
+		alias search_pack="emerge -s | egrep"
+	;;
+
+	"zypp")
+		alias install="sudo zypper ar"
+		alias uninstall="sudo zypper rr"
+		alias update="sudo zypper refresh"
+		alias list_all_packs="zypper repos"
+		alias search_pack="zypper repos | egrep"
 	;;
 
 	"apt")
@@ -36,13 +69,20 @@ case $PACKAGE_MANAGER in
 		alias search_pack="apt list | egrep"
 	;;
 
-	# Default value for pacman package manager
+	"apk")
+		alias install="sudo apk add"
+		alias uninstall="sudo apk del"
+		alias update="sudo apk update"
+		alias list_all_packs="apk search -v"
+		alias search_pack="apk search -v | egrep"
+	;;
+
 	*)
-		alias install="sudo pacman -Syyu"
-		alias uninstall="sudo pacman -Rns"
-		alias update="sudo pacman -Syyu"
-		alias list_all_packs="pacman -Q"
-		alias search_pack="pacman -Q"
+		alias install="echo \"error: command not available\""
+		alias uninstall="echo \"error: command not available\""
+		alias update="echo \"error: command not available\""
+		alias list_all_packs="echo \"error: command not available\""
+		alias search_pack="echo \"error: command not available\""
 	;;
 esac
 

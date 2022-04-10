@@ -28,6 +28,9 @@ function pathappend () {
   fi
 }
 
+# Configuration for WSL
+export DISPLAY=:0
+
 # Terminfo color
 export TERM=xterm-256color
 
@@ -63,6 +66,10 @@ export WSL_APPS=$WSL_HOME/OneDrive\ -\ Universidad\ de\ Las\ Palmas\ de\ Gran\ C
 export WSL_ULPGC=$WSL_HOME/OneDrive\ -\ Universidad\ de\ Las\ Palmas\ de\ Gran\ Canaria/ULPGC
 export WSL_CURR_COURSE=$WSL_HOME/OneDrive\ -\ Universidad\ de\ Las\ Palmas\ de\ Gran\ Canaria/ULPGC/4º\ CURSO
 
+# Configuration for chshell
+# DO NOT MODIFY ANY OF THESE VALUES
+export shell_dir=bash
+
 # Default directories for variable PATH
 pathappend $HOME/.local/bin
 pathappend /usr/local/bin
@@ -79,80 +86,124 @@ pathappend $WSL_APPS
 # Package manager variables
 export PACKAGE_MANAGER="unkown"
 
-declare -a pack_manager=(yum pacman apt apt-get)
-declare -a file_path=(redhat-release arch-release lsb-release lsb-release)
+# List of available package managers associated
+# to release plain-text files
+declare -a name_pack_manager=(
+  yum pacman emerger
+  zypp apt apt-get apk
+)
 
-for (( i=0; i<${#file_path[@]}; i++ )); do
-	if [[ -f /etc/${file_path[$i]} ]]; then
-		export PACKAGE_MANAGER=${pack_manager[$i]}
+declare -a f_pack_manager=(
+  redhat-release arch-release gentoo-release
+  SuSE-release lsb-release debian_version alpine-release
+)
+
+for (( i=0; i<${#name_pack_manager[@]}; i++)); do
+	if [[ -f /etc/${f_pack_manager[i]} ]]; then
+		export PACKAGE_MANAGER=${name_pack_manager[i]}
 		break
 	fi
 done
 
-unset file_path pack_manager
-
-# End current prompt color
-export ENDCOLOR="\[\e[0m\]"
+unset name_pack_manager f_pack_manager
 
 # Regular colors
-export BLACK="\[\033[0;30m\]"
-export RED="\[\033[0;31m\]"
-export GREEN="\[\033[0;32m\]"
-export YELLOW="\[\033[0;33m\]"
-export BLUE="\[\033[0;34m\]"
-export MAGENTA="\[\033[0;35m\]"
-export CYAN="\[\033[0;36m\]"
-export WHITE="\[\033[0;37m\]"
+export BLACK="\e[0;30m"
+export RED="\e[0;31m"
+export GREEN="\e[0;32m"
+export YELLOW="\e[0;33m"
+export BLUE="\e[0;34m"
+export MAGENTA="\e[0;35m"
+export CYAN="\e[0;36m"
+export WHITE="\e[0;37m"
 
-# Emphasized (bolded) colors
-export EMBLACK="\[\033[1;30m\]"
-export EMRED="\[\033[1;31m\]"
-export EMGREEN="\[\033[1;32m\]"
-export EMYELLOW="\[\033[1;33m\]"
-export EMBLUE="\[\033[1;34m\]"
-export EMMAGENTA="\[\033[1;35m\]"
-export EMCYAN="\[\033[1;36m\]"
-export EMWHITE="\[\033[1;37m\]"
+# Regular Bold
+export BOLD_BLACK="\e[1;30m"
+export BOLD_RED="\e[1;31m"
+export BOLD_GREEN="\e[1;32m"
+export BOLD_YELLOW="\e[1;33m"
+export BOLD_BLUE="\e[1;34m"
+export BOLD_MAGENTA="\e[1;35m"
+export BOLD_CYAN="\e[1;36m"
+export BOLD_WHITE="\e[1;37m"
+export BOLD="\e[1m"
 
-# Colors with darker values
-export DARKBLACK="\[\033[2;30m\]"
-export DARKRED="\[\033[2;31m\]"
-export DARKGREEN="\[\033[2;32m\]"
-export DARKYELLOW="\[\033[2;33m\]"
-export DARKBLUE="\[\033[2;34m\]"
-export DARKMAGENTA="\[\033[2;35m\]"
-export DARKCYAN="\[\033[2;36m\]"
-export DARKWHITE="\[\033[2;37m\]"
+# Regular Underline
+export UNDERLINE_BLACK="\e[4;30m"
+export UNDERLINE_RED="\e[4;31m"
+export UNDERLINE_GREEN="\e[4;32m"
+export UNDERLINE_YELLOW="\e[4;33m"
+export UNDERLINE_BLUE="\e[4;34m"
+export UNDERLINE_MAGENTA="\e[4;35m"
+export UNDERLINE_CYAN="\e[4;36m"
+export UNDERLINE_WHITE="\e[4;37m"
+export UNDERLINE="\e[4m"
 
-# Italic colors
-export IBLACK="\[\033[3;30m\]"
-export IRED="\[\033[3;31m\]"
-export IGREEN="\[\033[3;32m\]"
-export IYELLOW="\[\033[3;33m\]"
-export IBLUE="\[\033[3;34m\]"
-export IMAGENTA="\[\033[3;35m\]"
-export ICYAN="\[\033[3;36m\]"
-export IWHITE="\[\033[3;37m\]"
+# Regular background
+export BACKGROUND_BLACK="\e[40m"
+export BACKGROUND_RED="\e[41m"
+export BACKGROUND_GREEN="\e[42m"
+export BACKGROUND_YELLOW="\e[43m"
+export BACKGROUND_BLUE="\e[44m"
+export BACKGROUND_PURPLE="\e[45m"
+export BACKGROUND_CYAN="\e[46m"
+export BACKGROUND_WHITE="\e[47m"
 
-# Underlined regular colors
-export UNBLACK="\[\033[4;30m\]"
-export UNRED="\[\033[4;31m\]"
-export UNGREEN="\[\033[4;32m\]"
-export UNYELLOW="\[\033[4;33m\]"
-export UNBLUE="\[\033[4;34m\]"
-export UNMAGENTA="\[\033[4;35m\]"
-export UNCYAN="\[\033[4;36m\]"
-export UNWHITE="\[\033[4;37m\]"
+# Expand Regular Background Horizontally
+export EXPAND_BACKGROUND="\e[K"
 
-# Background colors
-export BGBLACK="\[\033[40m\]"
-export BGRED="\[\033[41m\]"
-export BGGREEN="\[\033[42m\]"
-export BGYELLOW="\[\033[43m\]"
-export BGBLUE="\[\033[44m\]"
-export BGMAGENTA="\[\033[45m\]"
-export BGCYAN="\[\033[46m\]"
-export BGWHITE="\[\033[47m\]"
+# Regular background horizontal
+export EXPAND_BACKGROUND_BLACK="\e[40m${EXPAND_BACKGROUND}"
+export EXPAND_BACKGROUND_RED="\e[41m${EXPAND_BACKGROUND}"
+export EXPAND_BACKGROUND_GREEN="\e[42m${EXPAND_BACKGROUND}"
+export EXPAND_BACKGROUND_YELLOW="\e[43m${EXPAND_BACKGROUND}"
+export EXPAND_BACKGROUND_BLUE="\e[44m${EXPAND_BACKGROUND}"
+export EXPAND_BACKGROUND_PURPLE="\e[45m${EXPAND_BACKGROUND}"
+export EXPAND_BACKGROUND_CYAN="\e[46m${EXPAND_BACKGROUND}"
+export EXPAND_BACKGROUND_WHITE="\e[47m${EXPAND_BACKGROUND}"
+
+# High Intensity Colors
+export HI_BLACK="\e[0;90m"
+export HI_RED="\e[0;91m"
+export HI_GREEN="\e[0;92m"
+export HI_YELLOW="\e[0;93m"
+export HI_BLUE="\e[0;94m"
+export HI_MAGENTA="\e[0;95m"
+export HI_CYAN="\e[0;96m"
+export HI_WHITE="\e[0;97m"
+
+# Bold High Intensity
+export BOLD_HI_BLACK="\e[1;90m"
+export BOLD_HI_RED="\e[1;91m"
+export BOLD_HI_GREEN="\e[1;92m"
+export BOLD_HI_YELLOW="\e[1;93m"
+export BOLD_HI_BLUE="\e[1;94m"
+export BOLD_HI_MAGENTA="\e[1;95m"
+export BOLD_HI_CYAN="\e[1;96m"
+export BOLD_HI_WHITE="\e[1;97m"
+
+# High Intensity Background
+export HI_BACKGROUND_BLACK="\e[100m"
+export HI_BACKGROUND_RED="\e[101m"
+export HI_BACKGROUND_GREEN="\e[102m"
+export HI_BACKGROUND_YELLOW="\e[103m"
+export HI_BACKGROUND_BLUE="\e[104m"
+export HI_BACKGROUND_PURPLE="\e[105m"
+export HI_BACKGROUND_CYAN="\e[106m"
+export HI_BACKGROUND_WHITE="\e[107m"
+
+# Regular background horizontal
+export EXPAND_HI_BACKGROUND_BLACK="\e[100m${EXPAND_BACKGROUND}"
+export EXPAND_HI_BACKGROUND_RED="\e[101m${EXPAND_BACKGROUND}"
+export EXPAND_HI_BACKGROUND_GREEN="\e[102m${EXPAND_BACKGROUND}"
+export EXPAND_HI_BACKGROUND_YELLOW="\e[103m${EXPAND_BACKGROUND}"
+export EXPAND_HI_BACKGROUND_BLUE="\e[104m${EXPAND_BACKGROUND}"
+export EXPAND_HI_BACKGROUND_PURPLE="\e[105m${EXPAND_BACKGROUND}"
+export EXPAND_HI_BACKGROUND_CYAN="\e[106m${EXPAND_BACKGROUND}"
+export EXPAND_HI_BACKGROUND_WHITE="\e[107m${EXPAND_BACKGROUND}"
+
+# Close Color
+export CLOSE_COLOR="\e[0m"
 
 # Color man pages
 export LESS_TERMCAP_mb=$'\E[01;32m'
