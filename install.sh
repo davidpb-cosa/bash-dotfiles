@@ -339,11 +339,14 @@ fi
 _apply_customization
 
 unset _packages _zsh_plugins
-unset silent_flag no_deps_flag
 unset terminal_name shell_name
+unset no_deps_flag
 
 if (( $silent_flag == 0 )); then
 	echo "Current shell would be reload..."
+	unset silent_flag
 	reload-bash
 	clear; reload-all-bash
 fi
+
+unset silent_flag
