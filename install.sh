@@ -227,7 +227,7 @@ function _install_dotfiles () {
 
 	ln -sf ~/.config/shell/bash/bashrc.bash ~/.bashrc
 	ln -sf ~/.config/shell/bash/profile.bash ~/.profile
-	ln -sf ~/.config/shell/zsh/.zshrc ~/.zshrc
+	ln -sf ~/.config/shell/zsh/zshrc.zsh ~/.zshrc
 
 	cp -rf $PWD/hyper/hyper.js ~/.config/Hyper/
 	cp -rf $PWD/neofetch/config.conf ~/.config/neofetch/
