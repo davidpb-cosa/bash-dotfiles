@@ -16,4 +16,4 @@ case $(basename "$(cat "/proc/$PPID/comm")") in
   *) export RPROMPT='$(git_prompt_string)' ;;
 esac
 
-export PROMPT="%F{magenta}%n%f :: %F{cyan}%/%f %F{red}>%f "
+export PROMPT="%F{magenta}%n%f :: %F{cyan}%2d%f %F{red}>%f "
