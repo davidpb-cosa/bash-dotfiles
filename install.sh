@@ -271,10 +271,12 @@ function _apply_customization () {
 		"bash")
 			setexport SHELL /usr/bin/bash
 			setexport SHELL_NAME bash
+			setexport HISTFILE  ~/.config/shell/.bash_history
 		;;
 		"zsh")
 			setexport SHELL /usr/bin/zsh
 			setexport SHELL_NAME zsh
+			setexport HISTFILE  ~/.config/shell/.zhistory
 		;;
 	esac
 }
