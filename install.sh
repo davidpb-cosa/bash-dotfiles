@@ -216,9 +216,7 @@ function _backup_dotfiles () {
 
 function _install_dotfiles () {
 	cp -rf $PWD/bash/*.bash ~/.config/shell/bash
-
 	cp -rf $PWD/zsh/*.zsh ~/.config/shell/zsh
-	mv ~/.config/shell/zsh/zshrc.zsh ~/.config/shell/zsh/.zshrc
 
 	cp -rf $PWD/neofetch/ascii_icon ~/.config/neofetch
 	cp -rf $PWD/exports ~/.config/shell
@@ -226,7 +224,6 @@ function _install_dotfiles () {
 	cp -rf $PWD/functions ~/.config/shell
 
 	ln -sf ~/.config/shell/bash/bashrc.bash ~/.bashrc
-	ln -sf ~/.config/shell/bash/profile.bash ~/.profile
 	ln -sf ~/.config/shell/zsh/zshrc.zsh ~/.zshrc
 
 	cp -rf $PWD/hyper/hyper.js ~/.config/Hyper/
