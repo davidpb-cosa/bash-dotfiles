@@ -50,7 +50,7 @@ shell_name="zsh"
 # that installation does not include all managers
 declare -a _packages=(
 	git dos2unix zsh
-	build-essential
+	build-essential neofetch
  	g++ libgtk-3-dev xinit
  	gtk-doc-tools gnutls-bin
  	valac intltool libpcre2-dev

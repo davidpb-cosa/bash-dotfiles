@@ -153,6 +153,7 @@ the dotfiles stored at this repository.
 git clone https://github.com/losedavidpb/bash-dotfiles
 cd bash-dotfiles
 
+sudo apt update
 ./install.sh
 
 rm -rf bash-dotfiles
