@@ -1,0 +1,95 @@
+{
+    // General appearance
+    "workbench.colorTheme": "Visual Studio Dark - C++",
+    "workbench.iconTheme": "vs-seti",
+
+    // Window
+    "window.closeWhenEmpty": true,
+    "window.zoomLevel": 2,
+
+    // Startup
+    "workbench.startupEditor": "readme",
+
+    // Disable navigation routes
+    "breadcrumbs.enabled": false,
+
+    // Explorer actions
+    "explorer.confirmDelete": false,
+    "explorer.confirmDragAndDrop": false,
+
+    // Excluded files for the explorer
+    "files.exclude": {
+        "**/__pycache__": true,
+        "**/.idea": true,
+        "**/.spyproject": true,
+        "**/bin": true,
+        "**/build": true,
+        "**/env": true,
+        "**/gnatprove": true,
+        "**/nbproject": true,
+        "**/obj": true
+    },
+
+    // Settings for saving process
+    "files.trimFinalNewlines": true,
+    "files.trimTrailingWhitespace": true,
+
+    // Cursor appearance
+    "editor.cursorBlinking": "smooth",
+    "editor.cursorSmoothCaretAnimation": true,
+    "editor.cursorWidth": 1,
+
+    // Utilities with scroll
+    "workbench.editor.scrollToSwitchTabs": true,
+
+    // Smooth settings
+    "editor.smoothScrolling": true,
+    "workbench.list.smoothScrolling": true,
+
+    // General encoding
+    "files.encoding": "iso88591",
+    "files.eol": "\n",
+
+    // WSL settings
+    "remote.downloadExtensionsLocally": true,
+
+    // Debugger
+    "debug.allowBreakpointsEverywhere": true,
+    "debug.terminal.clearBeforeReusing": true,
+
+    // Word wrapping
+    "editor.wordWrap": "on",
+
+    // Terminal
+    "terminal.integrated.copyOnSelection": true,
+    "terminal.integrated.cursorBlinking": true,
+    "terminal.integrated.defaultProfile.windows": "Ubuntu-18.04",
+    "terminal.integrated.profiles.windows": {
+        "Ubuntu-18.04": {
+            "path": "${env:windir}\\System32\\wsl.exe",
+            "args": [ "-d", "Ubuntu-18.04" ],
+            "overrideName": true,
+            "icon": "terminal-linux"
+        },
+        "PowerShell": {
+            "source": "PowerShell",
+            "icon": "terminal-powershell",
+            "overrideName": true
+        },
+        "Command Prompt": {
+            "path": "${env:windir}\\System32\\cmd.exe",
+            "icon": "terminal-cmd",
+            "overrideName": true,
+            "args": []
+        },
+        "Git Bash": {
+            "source": "Git Bash",
+            "icon": "terminal-ubuntu",
+            "overrideName": true,
+            "args": []
+        }
+    },
+
+    // Python
+    "python.defaultInterpreterPath": "/mnt/c/Program Files/Python_3_10/python.exe"
+}

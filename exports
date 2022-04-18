@@ -28,6 +28,9 @@ function pathappend () {
   fi
 }
 
+# Automatic cd at startup
+export CD_MODE="on"	# or off
+
 # Configuration for WSL
 export DISPLAY=:0
 

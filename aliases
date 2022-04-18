@@ -128,3 +128,19 @@ alias osinfo="echo $(uname -o) $(uname -m)"
 alias uptime="uptime -p | cut -c 4-"
 alias kernelinfo="uname -r"
 alias ddate='date +"%R - %a, %B %d, %Y"'
+
+# Git aliases
+alias ga='git add -A'
+alias gc='git commit -m'
+alias gcl='git clone'
+alias gco='git checkout'
+alias gpr='git prune'
+alias gd='git diff'
+alias gp='git push'
+alias gpo='git push origin'
+alias gs='git status'
+alias gba='git branch -a'
+alias gpom='git push origin master'
+alias gphm='git push heroku master'
+alias gnb='git checkout -b'
+alias gbdelall='git branch | grep -v -e master -e dev | xargs git branch -D'

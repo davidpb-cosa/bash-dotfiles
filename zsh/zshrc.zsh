@@ -21,5 +21,5 @@ source $ZSH_PLUGINS/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh &>/dev/n
 source $ZSH_PLUGINS/zsh-history-substring-search/zsh-history-substring-search.zsh &>/dev/null
 source $ZSH_PLUGINS/zsh-autosuggestions/zsh-autosuggestions.zsh &>/dev/null
 
-cd ~
+[[ $CD_MODE =~ "on" ]] && cd ~
 [[ $SHELL_STARTUP_MODE =~ "pretty" ]] && clear && sysinfo
