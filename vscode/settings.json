@@ -1,86 +1,178 @@
+/***********************************************************************
+ *
+ *  Settings for Visual Studio Code
+ *
+ *      by David Parreño Barbuzano <losedavidpb@gmail.com>
+ *
+ **********************************************************************/
 {
-    // General appearance
-    "workbench.colorTheme": "Visual Studio Dark - C++",
-    "workbench.iconTheme": "vs-seti",
-
-    // Window
-    "window.closeWhenEmpty": true,
-    "window.zoomLevel": 2,
-
-    // Startup
-    "workbench.startupEditor": "readme",
-
-    // Disable navigation routes
-    "breadcrumbs.enabled": false,
-
-    // Explorer actions
-    "explorer.confirmDelete": false,
-    "explorer.confirmDragAndDrop": false,
-
-    // Excluded files for the explorer
-    "files.exclude": {
-        "**/__pycache__": true,
-        "**/.idea": true,
-        "**/.spyproject": true,
-        "**/bin": true,
-        "**/build": true,
-        "**/env": true,
-        "**/gnatprove": true,
-        "**/nbproject": true,
-        "**/obj": true
-    },
-
-    // Settings for saving process
-    "files.trimFinalNewlines": true,
-    "files.trimTrailingWhitespace": true,
+    // Font style
+    "editor.fontFamily": "'Cascadia Mono', Consolas, 'Courier New', monospace",
+    "editor.fontWeight": "normal",
+    "editor.fontSize": 14,
 
     // Cursor appearance
+    "editor.cursorStyle": "line-thin",
     "editor.cursorBlinking": "smooth",
     "editor.cursorSmoothCaretAnimation": true,
     "editor.cursorWidth": 1,
 
-    // Utilities with scroll
-    "workbench.editor.scrollToSwitchTabs": true,
+    // Format
+    "editor.formatOnPaste": true,
+    "editor.formatOnType": true,
+    "editor.wordWrap": "on",
 
     // Smooth settings
     "editor.smoothScrolling": true,
     "workbench.list.smoothScrolling": true,
 
+    // Minimap
+    "editor.minimap.enabled": true,
+    "editor.minimap.autohide": false,
+    "editor.minimap.renderCharacters": true,
+    "editor.minimap.showSlider": "mouseover",
+    "editor.minimap.maxColumn": 129,
+    "editor.rulers": [ 132 ],
+
+    "workbench.startupEditor": "readme",
+    "workbench.editor.scrollToSwitchTabs": true,
+
+    // Workbench tree
+    "workbench.tree.expandMode": "singleClick",
+    "workbench.tree.renderIndentGuides": "always",
+    "workbench.tree.indent": 16,
+
+    // Window
+    "window.closeWhenEmpty": true,
+    "window.autoDetectColorScheme": true,
+    "window.confirmBeforeClose": "never",
+
+    // Security
+    "security.workspace.trust.enabled": true,
+    "security.workspace.trust.banner": "always",
+    "security.workspace.trust.untrustedFiles": "prompt",
+    "security.workspace.trust.startupPrompt": "once",
+
+    // Explorer actions
+    "explorer.confirmDelete": false,
+    "explorer.confirmDragAndDrop": false,
+    "explorer.excludeGitIgnore": true,
+
+    // Excluded files
+    "files.exclude": {
+        // Visual Studio
+        "*.csproj": true,
+        "*.sln": true,
+        "*.vsconfig": true,
+        ".vcsproj": true,
+        ".vcsproj.*": true,
+        "*.vs": true,
+        "packages.config": true,
+        "Release/": true,
+        "Debug/": true,
+        "packages/": true,
+        "x64/": true,
+        "x32/": true,
+
+        // Unity
+        "**/*.meta": true,
+        "**/*.*.meta": true,
+        "**/*.unityproj": true,
+        "UserSettings/": true,
+        "Packages/": true,
+        "Logs/": true,
+        "Library/": true,
+        "ProjectSettings/": true,
+        "Build/": true,
+        "obj/": true,
+        "Temp/": true,
+
+        // Visual Studio Code
+        ".vscode": true,
+        "**/.workspace": true,
+
+        // Temporal files
+        "**/.DS_Store": true,
+        "**/Temp": true,
+
+        // Python
+        "**/__pycache__": true,
+        "**/*.pyc": true,
+        "**/venv": true,
+        "**/env": true,
+
+        // Pycharm
+        "**/.idea": true,
+        "**/.spyproject": true,
+
+        // Binary and build files
+        "**/[bB]in": true,
+        "**/[bB]uild": true,
+
+        // GNAT Compiler
+        "**/gnatprove": true,
+        "**/nbproject": true,
+        "**/obj": true,
+
+        // Git
+        "**/.git": true,
+    },
+
+    // Disable navigation routes
+    "breadcrumbs.enabled": false,
+
+    // Files associations
+    "files.associations": {
+        "*.tex": "latex",
+        "*.json": "jsonc",
+        "*.fct": "clips",
+        "*.module": "php",
+        "AUTHORS": "plaintext",
+        "INSTALL": "plaintext",
+        "LICENSE": "plaintext"
+    },
+
     // General encoding
-    "files.encoding": "iso88591",
+    "files.encoding": "utf8",
+    "files.autoGuessEncoding": true,
     "files.eol": "\n",
 
-    // WSL settings
-    "remote.downloadExtensionsLocally": true,
+    // Settings for saving process
+    "files.autoSave": "off",
+    "files.trimFinalNewlines": true,
+    "files.trimTrailingWhitespace": true,
 
     // Debugger
     "debug.allowBreakpointsEverywhere": true,
     "debug.terminal.clearBeforeReusing": true,
 
-    // Word wrapping
-    "editor.wordWrap": "on",
+    // WSL settings
+    "remote.downloadExtensionsLocally": true,
 
     // Terminal
     "terminal.integrated.copyOnSelection": true,
     "terminal.integrated.cursorBlinking": true,
-    "terminal.integrated.defaultProfile.windows": "Ubuntu-18.04",
+    "terminal.integrated.defaultProfile.windows": "Command Prompt",
     "terminal.integrated.profiles.windows": {
-        "Ubuntu-18.04": {
+        "Ubuntu-22.04.1": {
             "path": "${env:windir}\\System32\\wsl.exe",
-            "args": [ "-d", "Ubuntu-18.04" ],
+            "args": [
+                "-d",
+                "Ubuntu-22.04"
+            ],
             "overrideName": true,
             "icon": "terminal-linux"
         },
         "PowerShell": {
             "source": "PowerShell",
             "icon": "terminal-powershell",
-            "overrideName": true
+            "overrideName": true,
         },
         "Command Prompt": {
             "path": "${env:windir}\\System32\\cmd.exe",
             "icon": "terminal-cmd",
             "overrideName": true,
-            "args": []
+            "args": [],
         },
         "Git Bash": {
             "source": "Git Bash",
@@ -90,6 +182,97 @@
         }
     },
 
+    // Processing
+    "processing.path": "C:\\Program Files\\Processing\\processing.exe",
+
+    // CMake configuration
+    "cmake.configureOnOpen": true,
+
+    // C/C++ configuration
+    "C_Cpp.default.compilerPath": "C:\\MinGW\\bin\\gcc.exe",
+    "C_Cpp.default.compilerArgs": [ "-lm", "-g", "-lfl" ],
+    "C_Cpp.default.cppStandard": "gnu++14",
+    "C_Cpp.default.cStandard": "c99",
+    "C_Cpp.autoAddFileAssociations": false,
+    "C_Cpp.default.intelliSenseMode": "windows-gcc-x64",
+    "C_Cpp.intelliSenseEngineFallback": "Enabled",
+    "C_Cpp.vcFormat.space.beforeComma": true,
+    "C_Cpp.vcFormat.space.beforeEmptySquareBrackets": true,
+    "C_Cpp.vcFormat.space.betweenEmptyBraces": true,
+    "C_Cpp.vcFormat.space.beforeOpenSquareBracket": true,
+    "C_Cpp.vcFormat.space.beforeInitializerListOpenBrace": true,
+    "C_Cpp.vcFormat.space.beforeLambdaOpenParenthesis": true,
+    "C_Cpp.vcFormat.space.betweenEmptyParameterListParentheses": true,
+    "C_Cpp.vcFormat.space.betweenEmptySquareBrackets": true,
+    "C_Cpp.vcFormat.space.insertAfterSemicolon": true,
+    "C_Cpp.vcFormat.indent.caseContentsWhenBlock": true,
+    "C_Cpp.vcFormat.indent.caseLabels": true,
+    "C_Cpp.debugShortcut": true,
+    "C_Cpp.autocompleteAddParentheses": true,
+    "C_Cpp.clang_format_sortIncludes": true,
+    "C_Cpp.workspaceSymbols": "All",
+    "C_Cpp.vcFormat.space.withinLambdaBrackets": true,
+    "C_Cpp.codeAnalysis.clangTidy.enabled": false,
+    "[c]": {
+        "editor.wordBasedSuggestions": true,
+        "editor.suggest.insertMode": "replace",
+        "editor.semanticHighlighting.enabled": true
+    },
+
+    // PHP
+    //"php.executablePath": "C:\\Program Files (x86)\\PHP-8.0\\php.exe",
+    //"php.validate.executablePath": "C:\\Program Files (x86)\\PHP-8.0\\php.exe",
+    "php.executablePath": "/mnt/c/Program Files (x86)/PHP-8.0/php.exe",
+    "php.validate.executablePath": "/mnt/c/Program Files (x86)/PHP-8.0/php.exe",
+    "[php]": {
+        "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
+    },
+    "php-intellisense.trace.server": "verbose",
+    "php.suggest.basic": false,
+
+    // LaTeX
+    "latex-workshop.bibtex-format.sort.enabled": true,
+    "latex-workshop.bibtex-format.align-equal.enabled": true,
+    "latex-workshop.bibtex-format.sortby": [
+        "booktitle", "journal", "title", "year",
+    ],
+    "latex-workshop.bibtex-fields.sort.enabled": true,
+    "latex-workshop.bibtex-fields.order": [
+        "title", "author", "key", "booktitle",
+        "journal", "year", "volume", "number",
+        "pages", "publisher", "address", "editor",
+        "edition", "translator",
+    ],
+    "latex-workshop.intellisense.package.enabled": true,
+    "latex-workshop.latex.outDir": "%DIR%/.tmp",
+    "latex-workshop.view.pdf.viewer": "external",
+    "latex-workshop.latex.autoClean.run": "onBuilt",
+    "latex-workshop.latex.autoBuild.run": "onSave",
+    "latex-workshop.latex.clean.fileTypes": [
+        "*.aux", "*.bbl", "*.blg", "*.idx",
+        "*.ind", "*.lof", "*.lot", "*.out",
+        "*.toc", "*.acn", "*.acr", "*.alg",
+        "*.glg", "*.glo", "*.gls", "*.ist",
+        "*.fls", "*.log", "*.fdb_latexmk"
+    ],
+
+    // C#
+    "csharp.format.enable": true,
+    "csharp.referencesCodeLens.enabled": true,
+    "csharp.semanticHighlighting.enabled": true,
+    "csharp.suppressHiddenDiagnostics": false,
+
+    // Omnisharp
+    "omnisharp.path": "",
+    "omnisharp.useModernNet": true,
+    "omnisharp.organizeImportsOnFormat": true,
+    "workbench.iconTheme": "material-icon-theme",
+
     // Python
-    "python.defaultInterpreterPath": "/mnt/c/Program Files/Python_3_10/python.exe"
+    "python.defaultInterpreterPath": "/mnt/c/Program Files/Python_3_10/python.exe",
+
+    // Code Lens
+    "editor.codeLens": false,
+    "workbench.colorTheme": "Default Dark+",
+    "window.zoomLevel": 1,
 }

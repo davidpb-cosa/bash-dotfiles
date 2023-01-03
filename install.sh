@@ -3,7 +3,7 @@
 # install.sh - installation for my dotfiles
 #
 # SYNTAX
-#	
+#
 #	./install.sh [-q|--quiet]
 #
 # DESCRIPTION
@@ -83,7 +83,7 @@ function _install_packages () {
 	for (( i=0; i<${#_packages[@]}; i++ )); do
 		local package_name=${_packages[$i]}
 
-		(( $silent_flag == 0)) && echo -n ">> Installing package $package_name ... "
+		(( $silent_flag == 0 )) && echo -n ">> Installing package $package_name ... "
 
 		case $PACKAGE_MANAGER in
 			"yum")
@@ -124,7 +124,7 @@ function _install_packages () {
 			*) _showerr "package manager not available" ;;
 		esac
 
-		(( $silent_flag == 0)) && echo "OK"
+		(( $silent_flag == 0 )) && echo "OK"
 	done
 }
 
@@ -139,14 +139,14 @@ function _install_vte_ng () {
 
     export LIBRARY_PATH="/usr/include/gtk-3.0:$LIBRARY_PATH"
     cd vte-ng && sudo ./autogen.sh &>/dev/null && sudo make -s &>/dev/null && sudo make -s install &>/dev/null
-    
-    cd ..; (( $silent_flag == 0)) && echo "OK"
+
+    cd ..; (( $silent_flag == 0 )) && echo "OK"
 	sudo rm -rf vte-ng &>/dev/null
 }
 
 function _install_termite () {
 	(( $silent_flag == 0)) && echo -n ">> Installing package termite ... "
-    
+
     if [[ ! -d termite ]]; then
 		sudo rm -rf termite &>/dev/null
         sudo git clone --recursive https://github.com/thestinger/termite.git --quiet >/dev/null
@@ -163,8 +163,8 @@ function _install_termite () {
 
     sudo update-alternatives --install /usr/bin/x-terminal-emulator \
         x-terminal-emulator /usr/local/bin/termite 60 &>/dev/null
-	
-    cd ..; (( $silent_flag == 0)) && echo "OK"
+
+    cd ..; (( $silent_flag == 0 )) && echo "OK"
 	sudo rm -rf termite &>/dev/null
 }
 
@@ -175,14 +175,14 @@ function _install_zsh_plugins () {
 		local zsh_plugin_url=${_zsh_plugins[$zsh_plugin]}
 		sudo rm -rf /usr/share/zsh/plugins/$zsh_plugin 2>/dev/null
 		sudo mkdir -p /usr/share/zsh/plugins/$zsh_plugin 2>/dev/null
-		
+
 		sudo git clone $zsh_plugin_url --quiet &>/dev/null
 		sudo find ./$zsh_plugin/* -type f -print0 | xargs -0 sudo dos2unix -- &>/dev/null
 		sudo cp -rf ./$zsh_plugin/* /usr/share/zsh/plugins/$zsh_plugin &>/dev/null
 		sudo rm -rf $zsh_plugin &>/dev/null
 	done
 
-	(( $silent_flag == 0)) && echo "OK"
+	(( $silent_flag == 0 )) && echo "OK"
 }
 
 function _prepare_dotfiles () {
@@ -241,7 +241,7 @@ function _customization () {
 
 	local menu_items=('Termite' 'Hyper')
 	interactive_menu "$temp_file" "0" "${menu_items[@]}"
-	
+
 	case "$?" in
 		0) terminal_name="termite" ;;
 		1) terminal_name="hyper" ;;

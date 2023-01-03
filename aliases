@@ -25,6 +25,7 @@ case $PACKAGE_MANAGER in
 		alias install="sudo yum install"
 		alias uninstall="sudo yum remove"
 		alias update="sudo yum update"
+		alias upgrade="sudo yum upgrade"
 		alias list_all_packs="yum list"
 		alias search_pack="yum list | egrep"
 	;;
@@ -33,6 +34,7 @@ case $PACKAGE_MANAGER in
 		alias install="sudo pacman -Syyu"
 		alias uninstall="sudo pacman -Rns"
 		alias update="sudo pacman -Syyu"
+		#alias upgrade="sudo pacman -Syyu"
 		alias list_all_packs="pacman -Q"
 		alias search_pack="pacman -Q | egrep"
 	;;
@@ -40,7 +42,8 @@ case $PACKAGE_MANAGER in
 	"emerger")
 		alias install="sudo emerge"
 		alias uninstall="sudo emerge -C"
-		alias update="sudo emerge -uD world"
+		alias update="sudo emerge -uDp world"
+		#alias upgrade="sudo emerge -uDp world"
 		alias list_all_packs="emerge -s"
 		alias search_pack="emerge -s | egrep"
 	;;
@@ -49,6 +52,7 @@ case $PACKAGE_MANAGER in
 		alias install="sudo zypper ar"
 		alias uninstall="sudo zypper rr"
 		alias update="sudo zypper refresh"
+		alias upgrade="sudo zypper dist-upgrade"
 		alias list_all_packs="zypper repos"
 		alias search_pack="zypper repos | egrep"
 	;;
@@ -57,6 +61,7 @@ case $PACKAGE_MANAGER in
 		alias install="sudo apt install"
 		alias uninstall="sudo apt remove"
 		alias update="sudo apt update"
+		alias upgrade="sudo apt upgrade"
 		alias list_all_packs="apt list"
 		alias search_pack="apt list | egrep"
 	;;
@@ -65,6 +70,7 @@ case $PACKAGE_MANAGER in
 		alias install="sudo apt-get install"
 		alias uninstall="sudo apt-get remove"
 		alias update="sudo apt-get update"
+		alias update="sudo apt-get upgrade"
 		alias list_all_packs="apt list"
 		alias search_pack="apt list | egrep"
 	;;
@@ -73,6 +79,7 @@ case $PACKAGE_MANAGER in
 		alias install="sudo apk add"
 		alias uninstall="sudo apk del"
 		alias update="sudo apk update"
+		alias upgrade="sudo apk upgrade"
 		alias list_all_packs="apk search -v"
 		alias search_pack="apk search -v | egrep"
 	;;
@@ -81,6 +88,7 @@ case $PACKAGE_MANAGER in
 		alias install="echo \"error: command not available\""
 		alias uninstall="echo \"error: command not available\""
 		alias update="echo \"error: command not available\""
+		alias upgrade="echo \"error: command not available\""
 		alias list_all_packs="echo \"error: command not available\""
 		alias search_pack="echo \"error: command not available\""
 	;;
