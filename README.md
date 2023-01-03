@@ -1,5 +1,3 @@
-<img src="logo.png" align="right" height=150px width=180px />
-
 # My .files configuration
 
 My personal dotfiles configuration for Unix machines.
